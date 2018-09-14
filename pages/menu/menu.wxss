@@ -1,0 +1,29 @@
+
+.group-header{
+  color: #00BFFF;
+  line-height: 100rpx;
+	display: flex;
+	padding: 0 20rpx;
+	background: #F7F7F7;
+}
+
+.item-list{
+  display: flex;
+  flex-direction: row;
+   border-bottom:1rpx solid #CCCCCC;
+   justify-content: space-between;
+   
+}
+  .menu-ltem{
+    font-size: 30rpx;
+    height: 100rpx;
+    padding-left: 20rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .item-image{
+    margin-right:20rpx; 
+    height: 30rpx;
+    width: 30rpx;
+  }

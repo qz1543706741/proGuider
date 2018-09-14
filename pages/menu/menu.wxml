@@ -1,0 +1,23 @@
+<view class="group-header">发布菜单</view>
+<view class="group-body">
+  <view class='item-list' wx:for="{{releaseList}}" data-title="1" data-id="{{item.id}}" wx:key="{{item.id}}" bindtap='link'>
+    <view class='menu-ltem'>
+      {{item.title}}
+    </view>
+    <view class='menu-ltem'>
+      <image class='item-image' src='../../images/right.png' mode='aspectFit'></image>
+    </view>
+  </view>
+</view>
+
+<view class="group-header">查询菜单</view>
+<view class="group-body">
+  <view class='item-list' wx:for="{{searchList}}" data-title="2" data-id="{{item.id}}" wx:key="{{item.id}}" bindtap='link'>
+    <view class='menu-ltem'>
+      {{item.title}}
+    </view>
+    <view class='menu-ltem'>
+      <image class='item-image' src='../../images/right.png' mode='aspectFit'></image>
+    </view>
+  </view>
+</view>

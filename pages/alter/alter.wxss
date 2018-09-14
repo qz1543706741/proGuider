@@ -1,0 +1,66 @@
+/**index.wxss**/
+
+
+.scrollview {
+  height: 50%;
+  position: absolute;
+  top: 450rpx;
+}
+
+.sort {
+  
+  display: flex;
+  flex:1;
+  flex-direction: column;
+  width: 100%;
+  color: #333;
+
+}
+
+.itemview {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right:205rpx;
+  padding-right: 5%;
+  border-bottom: 1px solid #e8e8e8;
+  background:whitesmoke;
+}
+
+.filter-panel{
+background:white;
+}
+
+.filter-panel-center{
+  margin-top: 20rpx;
+  flex: 1;
+	line-height: 80rpx;
+	text-align:left;
+	max-height: 480rpx;
+	overflow-y: auto;
+  background:white;
+}
+.input-item-contents{
+  display: flex;
+  flex-direction: row;
+}
+.input-item-labels{
+  display: block;
+	width: 2em;
+	color: red;
+  size: 8rpx;
+}
+btn-submit{
+  display: flex;
+  flex-direction: column;
+	padding: 20rpx;
+}
+.btn-block{
+	width: 100%;
+	line-height: 88rpx;
+}
+.btn-blue{
+  margin-right: 0rpx;
+	background: #00BFFF;
+	color: #fff;
+}

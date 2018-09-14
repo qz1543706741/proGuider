@@ -1,0 +1,15 @@
+<view class="containers">
+<image class="header" src='../../images/a.png'></image>
+  <view class="group-header">我的菜单</view>
+<view class="group-body">
+  <view class='item-list' wx:for="{{myList}}" data-title="1" data-id="{{item.id}}" wx:key="{{item.id}}" bindtap='link'>
+    <view class='menu-ltem'>
+      {{item.title}}
+    </view>
+    <view class='menu-ltem'>
+      <image class='item-image' src='../../images/right.png' mode='aspectFit'></image>
+    </view>
+  </view>
+</view>
+
+</view>

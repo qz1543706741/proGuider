@@ -1,0 +1,48 @@
+<!--index.wxml-->
+<view class="container">
+<view class="selecton">
+  <swiper class="index-banner" indicator-dots="{{true}}"
+    autoplay="{{true}}" interval="{{4000}}" duration="{{1000}}">
+    <block wx:for="{{imgUrls}}" wx:key="*this">
+      <swiper-item>
+      <image src="{{item}}"  style="width:{{imageWidth}}px;height:100%" mode="aspectFill" class="slide-image"/>
+ 
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+
+<view class="selecton">
+  <view class='header' bindtap='searchTutor'>
+     <text class='text_tutor'>名师</text>
+     <text class='text_more'>更多</text>
+     <image class='header_image' mode="aspectFill" src='../../images/more.png'></image>
+  </view>
+  </view>
+
+  <scroll-view class="container-body" scroll-y="true" scroll-top="{{scrolltop}}" bindscroll="scrollHandle" lower-threshold="50" bindscrolltolower="scrollLoading" >
+
+	<view class="list-item" wx:for="{{tutorlist}}" data-index="{{index}}" data-id="{{item.id}}" wx:key="{{item.id}}"
+      bindtap='gotutordetail'>
+	<view class='list-item-image'>
+  <image class='list-item-image-content' src="https://www.profguider.com/bktServer{{item.imageAddress}}" ></image>
+  </view>
+  <view class='list-item-content'>
+  <view class="list-item-content-text">
+  <text >姓名：{{item.name}}</text>
+  </view>
+  <view class="list-item-content-text">
+  <text >学校：{{item.schoolName}}</text>
+  </view>
+  <view class="list-item-content-text">
+  <text >专业：<text wx-if="{{item.majorName1}}">①{{item.majorName1}}</text> <text class="service-city-text" wx-if="{{item.majorName2}}">②{{item.majorName2}}</text> <text class="service-city-text" wx-if="{{item.majorName3}}">③{{item.majorName3}}</text> </text>
+  </view> 
+	</view>
+</view>
+</scroll-view>
+<view class="weui-loadmore weui-loadmore_line">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
+  </view>
+</view>
+
+

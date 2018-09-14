@@ -1,0 +1,221 @@
+<form bindsubmit="formSubmit" bindreset="formReset">
+<view class="container container-gray">
+	<view class="group">
+  	<view class="group-header">基本信息</view>
+		<view class="group-body">
+			<view class="input-list">
+				<view class="input-item">
+					<text class="input-item-label" >姓名</text>
+					<view class="input-item-content">
+						<input type="text" value="{{name}}" name="name" placeholder="请输入姓名(必填项)"></input>
+					</view>
+				</view>
+        	<view class="input-item">
+					<text class="input-item-label">性别</text>
+					<view class="input-item-content">
+						<radio-group name="sex">
+							<label > <radio value="男"/>男	</label>
+							<label > <radio value="女"/>女  </label>
+						</radio-group>
+					</view>
+				</view>
+
+<view class="input-item">
+					<text class="input-item-label">本科所在地区</text>
+					<picker class="input-item-content" name="province" bindchange="bindPickerChange" data-pickername="province" value="{{provinceindex}}" range="{{provinceArray}}" range-key="title">{{provinceArray[provinceindex].title}}
+					</picker>
+				</view>
+
+
+	<view class="input-item">
+        <text class="input-item-label">报考院校</text>
+        <view class="sort">
+	    <view class="input-item-content">
+      <input   data-findex="1" bindfocus="setFilterPanel" bindinput="bindinput" value="{{inputValue}}" placeholder="请输入关键字(必填项)" />
+		</view>
+		<view class="filter-content" wx:if="{{showfilter}}">
+			<view class="filter-panel" wx:if="{{showfilterindex==1}}">
+					<scroll-view scroll-y="true" class="filter-panel-center">
+           <view wx:for="{{bindSource}}" wx:key="id">
+           <view data-itemname="choiceSchool" data-id="{{item.id}}" data-schoolname='{{item.schoolName}}'  bindtap="itemtap" class="itemview">{{item.id}} {{item.schoolName}}</view>
+      </view>
+      </scroll-view>
+			</view>
+		</view>
+		<view class="filter-shadow" wx:if="{{showfilter}}" bindtap="hideFilter"></view>
+    </view>
+	</view>
+
+	<view class="input-item">
+        <text class="input-item-label">报考专业</text>
+<view class="sort">
+	    <view class="input-item-content">
+      <input   data-findex="5" bindfocus="setFilterPanel" bindinput="bindinput" value="{{inputValue4}}" placeholder="请输入关键字(必填项)" />
+		</view>
+		<view class="filter-content" wx:if="{{showfilter}}">
+			<view class="filter-panel" wx:if="{{showfilterindex==5}}">
+					<scroll-view scroll-y="true" class="filter-panel-center">
+           <view wx:for="{{bindSource}}" wx:key="id">
+           <view data-itemname="choiceMajor" data-id="{{item.id}}" data-name='{{item.name}}'  bindtap="itemtap" class="itemview">{{item.id}} {{item.name}}</view>
+      </view>
+      </scroll-view>
+			</view>
+		</view>
+		<view class="filter-shadow" wx:if="{{showfilter}}" bindtap="hideFilter"></view>
+    </view>
+	</view>
+
+
+	<view class="input-item">
+					<text class="input-item-label">是否进入复试</text>
+				<view class="input-item-content">
+						<radio-group name="ifreexam">
+							<label > <radio value="是"/>是	</label>
+							<label > <radio value="否"/>否 </label>
+						</radio-group>
+					</view>
+				</view>
+<view class="input-item">
+					<text class="input-item-label">是否意向调剂</text>
+				<view class="input-item-content">
+						<radio-group name="ifadjust">
+							<label > <radio value="是"/>是	</label>
+							<label > <radio value="否"/>否 </label>
+						</radio-group>
+					</view>
+				</view>
+
+      	<view class="input-item">
+        <text class="input-item-label">意向专业</text>
+<view class="sort">
+	    <view class="input-item-content">
+      <input   data-findex="2" bindfocus="setFilterPanel" bindinput="bindinput" value="{{inputValue1}}" placeholder="请输入关键字(必填项)" />
+		</view>
+		<view class="filter-content" wx:if="{{showfilter}}">
+			<view class="filter-panel" wx:if="{{showfilterindex==2}}">
+					<scroll-view scroll-y="true" class="filter-panel-center">
+           <view wx:for="{{bindSource}}" wx:key="id">
+           <view data-itemname="adjustMajor1" data-id="{{item.id}}" data-name='{{item.name}}'  bindtap="itemtap" class="itemview">{{item.id}} {{item.name}}</view>
+      </view>
+      </scroll-view>
+			</view>
+		</view>
+		<view class="filter-shadow" wx:if="{{showfilter}}" bindtap="hideFilter"></view>
+    </view>
+	</view>
+
+  	<view class="input-item">
+        <text class="input-item-label">意向专业</text>
+	<view class="sort">
+	    <view class="input-item-content">
+      <input  data-findex="3"  bindfocus="setFilterPanel" bindinput="bindinput" value="{{inputValue2}}" placeholder="请输入关键字" />
+		</view>
+		<view class="filter-content" wx:if="{{showfilter}}">
+			<view class="filter-panel" wx:if="{{showfilterindex==3}}">
+					<scroll-view scroll-y="true" class="filter-panel-center">
+           <view wx:for="{{bindSource}}" wx:key="id">
+           <view data-itemname="adjustMajor2" data-id="{{item.id}}" data-name='{{item.name}}'  bindtap="itemtap" class="itemview">{{item.id}} {{item.name}}</view>
+      </view>
+      </scroll-view>
+			</view>
+		</view>
+		<view class="filter-shadow" wx:if="{{showfilter}}" bindtap="hideFilter"></view>
+    </view>
+	</view>
+
+  	<view class="input-item">
+        <text class="input-item-label">意向专业</text>
+		<view class="sort">
+	    <view class="input-item-content">
+      <input   data-findex="4" bindfocus="setFilterPanel" bindinput="bindinput" value="{{inputValue3}}" placeholder="请输入关键字" />
+		</view>
+		<view class="filter-content" wx:if="{{showfilter}}">
+			<view class="filter-panel" wx:if="{{showfilterindex==4}}">
+					<scroll-view scroll-y="true" class="filter-panel-center">
+           <view wx:for="{{bindSource}}" wx:key="id">
+           <view data-itemname="adjustMajor3" data-id="{{item.id}}" data-name='{{item.name}}'  bindtap="itemtap" class="itemview">{{item.id}} {{item.name}}</view>
+      </view>
+      </scroll-view>
+			</view>
+		</view>
+		<view class="filter-shadow" wx:if="{{showfilter}}" bindtap="hideFilter"></view>
+    </view>
+	</view>
+
+<view class="input-item">
+					<text class="input-item-label">QQ</text>
+					<view class="input-item-content">
+						<input value="{{qq}}" type="number" name="qq" placeholder="请输入QQ" maxlength="11"></input>
+					</view>
+				</view>
+
+        <view class="input-item">
+					<text class="input-item-label">Email</text>
+					<view class="input-item-content">
+						<input  value="{{email}}" type="text" name="email" placeholder="请输入Email"></input>
+					</view>
+				</view>
+				
+          <view class="input-item">
+					<text class="input-item-label">手机号码</text>
+					<view class="input-item-content">
+						<input  value="{{phone}}" type="number" name="phone" placeholder="请输入手机号码" maxlength="11"></input>
+					</view>
+				</view>
+
+
+			</view>
+		</view>
+
+	
+		<view class="group-header">初试成绩</view>
+		<view class="group-body">
+			<view class="input-list">
+				<view class="input-item input-item-adaption">
+					<text class="input-item-label">政治科目</text>
+					<view class="input-item-content">
+						<input value="{{politicsScore}}"  type="number" name="politicsScore" placeholder="请输入分数" maxlength="3"></input>
+					</view>
+				</view>
+				<view class="input-item input-item-adaption">
+					<text class="input-item-label">外语科目</text>
+					<view class="input-item-content">
+						<input value="{{foreginScore}}"  type="number" name="foreginScore" placeholder="请输入分数" maxlength="3"></input>
+					</view>
+				</view>
+				<view class="input-item input-item-adaption">
+					<text class="input-item-label">业务课一</text>
+					<view class="input-item-content">
+						<input value="{{profession1Score}}" type="number" name="profession1Score" placeholder="请输入分数" maxlength="3"></input>
+					</view>
+				</view>
+				<view class="input-item input-item-adaption">
+					<text class="input-item-label">业务课二</text>
+					<view class="input-item-content">
+						<input value="{{profession2Score}}" type="number" name="profession2Score" placeholder="请输入分数" maxlength="3"></input>
+					</view>
+				</view>
+
+        <view class="input-item input-item-adaption">
+					<text class="input-item-label">总分</text>
+					<view class="input-item-content">
+						<input value="{{socre}}" name='score' type="number" placeholder="请输入分数" maxlength="3"></input>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+  	<view class="group-header">个人经历</view>
+		<view class="group-body">
+			<view class="input-list">
+				<view class="input-item input-item-full">
+					<textarea value="{{introduction}}" name="introduction" placeholder="请输入个人经历" maxlength="-1" ></textarea>
+				</view>
+			</view>
+		</view>
+	<view class="btn-submit">
+		<button class="btn-block btn-blue" formType="submit">提交</button>
+    <button class="btn-block" type="default" formType="reset">重置</button> 
+	</view>
+</view>
+</form>

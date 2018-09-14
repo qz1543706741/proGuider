@@ -1,0 +1,19 @@
+<view class="containers">
+  <view class="touch-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-title="search" data-id="{{item.id}}" data-index="{{index}}" bindtouchstart="touchstart" bindtap='gotutordetail' bindtouchmove="touchmove" wx:for="{{items}}" wx:key="">
+    <view class="content">
+    <image class="userinfo-avatar" src="../../images/academic-hat.png"></image> 
+    <view class="content-item">
+    <text>姓名：{{item.name}}</text>
+    <text>发布时间:{{item.releaseDate}}</text>
+    </view>
+     <view>
+          <image class='content-left' src='../../images/left_g.png' mode='aspectFit'></image>
+    </view>
+    </view>
+    <view class="edit" catchtap="gotutordetail" data-title="edit" data-id="{{item.id}}"  data-index="{{index}}">编辑</view>
+    <view class="del" catchtap="del" data-id="{{item.id}}" data-index="{{index}}">删除</view>
+  </view>
+  <view class="weui-loadmore weui-loadmore_line" wx:if="{{open}}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂未发布消息</view>
+  </view>
+</view>

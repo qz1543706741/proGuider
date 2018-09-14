@@ -1,0 +1,55 @@
+{
+  "pages":[
+
+
+    "pages/index/index",
+    "pages/tutordetail/tutordetail",
+    "pages/studentdetail/studentdetail",
+    "pages/search/search",
+    "pages/searchStudent/searchStudent",
+    "pages/release/release",
+    "pages/releaseStudent/releaseStudent",
+    "pages/my/my",
+    "pages/menu/menu",
+    "pages/myrecoder/myrecoder",
+    "pages/myrelease/myrelease",
+    "pages/alter/alter"
+   
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#00BFFF",
+    "navigationBarTitleText": "卓导",
+    "navigationBarTextStyle":"white"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "主页",
+        "iconPath": "images/index_off.png",
+        "selectedIconPath": "images/index_on.png"
+      },
+      {
+        "pagePath": "pages/menu/menu",
+        "text": "菜单",
+        "iconPath": "images/add_off.png",
+        "selectedIconPath": "images/add_on.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "images/my_off.png",
+        "selectedIconPath": "images/my_on.png"
+      }
+    ],
+    "color": "#333",
+    "selectedColor": "#00BFFF",
+    "backgroundColor": "#f6f6f6",
+    "borderStyle": "white"
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  }
+}

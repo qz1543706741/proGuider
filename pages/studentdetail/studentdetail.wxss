@@ -1,0 +1,97 @@
+
+.container-body{
+margin-bottom: 10rpx;
+}
+.group-body-text{
+  font-size: 27rpx; 
+margin-left: 10rpx;
+  margin-right: 5rpx;
+  word-wrap:break-word; 
+}
+
+.header{
+  height: 360rpx;
+  width: 100%;
+  vertical-align:middle;
+}
+
+.group-header{
+  margin-top: 10rpx;
+  color: white;
+  background:#00BFFF; 
+  border-radius: 10rpx;
+}
+.group-body{
+  width: 740rpx;
+margin-top: 5rpx;
+margin-left: 5rpx;
+margin-right: 80rpx;
+border-radius: 10rpx;
+box-shadow: 0px 2rpx 5rpx #888888;
+background-color: #FFFFE0	;
+}
+
+.table{
+  margin-top: 20rpx;
+  display: table; 
+  width: 100%; 
+  border-collapse: collapse;
+}
+
+.table-tr {
+  display: table-row; 
+  }
+
+  .table-ths {
+     font-size: 30rpx; 
+     display: table-cell;
+     width: 35%;
+     height: 60rpx;
+     text-align: center;
+     vertical-align: middle;
+     word-break: keep-all;
+     }
+
+   .table-th {
+    font-size: 27rpx; 
+     display: table-cell;
+     height: 60rpx;
+      width: 65%;
+     text-align: center;
+     vertical-align: middle;
+      word-break: break-all;
+     }
+     .table-item{
+       margin-left: 40rpx;
+      display: flex;
+      flex-direction: row ;
+     
+     }
+
+     .table-icon{
+       width:22px;
+        height: 22px;
+        margin-right: 10rpx;
+     }
+
+     .tutor-header{
+  height: 150rpx;
+  width: 150rpx;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 50%;
+  left:40.5%;
+}
+.tutor-name{
+  color: white;
+  font-size: 35rpx;
+  position: absolute;
+  margin-top: 35rpx;
+}
+
+.tutor-shchool{
+  color: white;
+  font-size: 30rpx;
+  position: absolute;
+  margin-top:100rpx;
+}

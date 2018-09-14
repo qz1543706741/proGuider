@@ -1,0 +1,238 @@
+<view class="container">
+  <view class='seletion'>
+
+    <view class="header">
+      <image class="tutor-header" src='https://www.profguider.com/bktServer{{list.imageAddress}}'></image>
+
+      <text class="tutor-name">{{list.name}}</text>
+      <text class="tutor-shchool">{{list.schoolName}}</text>
+    </view>
+
+  </view>
+
+
+ 
+  <view class='seletion'>
+    <view class="swiper-tab">
+      <view class="bre swiper-tab-list {{tab==0 ? 'on' : ''}}" data-current="0" bindtap="tab_click">基本信息</view>
+      <view class="swiper-tab-list {{tab==1 ? 'on' : ''}}" data-current="1" bindtap="tab_click">导师简介</view>
+      <view class="swiper-tab-list {{tab==2 ? 'on' : ''}}" data-current="2" bindtap="tab_click">招生要求</view>
+      <view class="swiper-tab-list {{tab==3 ? 'on' : ''}}" data-current="3" bindtap="tab_click">得意门生</view>
+    </view>
+
+    <swiper current="{{tab}}" class="swiper-box" duration="300" bindchange="tab_slide">
+      <swiper-item class="swiper-box-active">
+<view class="group-body">
+  <view class='table'>
+    <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/educational-institution.png'></image>
+      <text>学校</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.schoolName}}</view>
+    </view>
+
+  
+    <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/column.png'></image>
+      <text>院系</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.departmentName}}</view>
+    </view>
+
+     <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/academic-hat.png'></image>
+      <text>职称</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.title}}</view>
+    </view>
+
+ <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/qq.png'></image>
+      <text>QQ</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.qq}}</view>
+    </view>
+
+ <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/email.png'></image>
+      <text>Email</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.email}}</view>
+    </view>
+
+    <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/phone.png'></image>
+      <text>手机号码</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.phone}}</view>
+    </view>
+
+
+    <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/open-textbook.png'></image>
+      <text>招收专业</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.majorId1}} {{list.majorName1}}</view>
+    </view>
+
+        <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/open-textbook.png'></image>
+      <text>招收专业</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.majorId2}} {{list.majorName2}}</view>
+    </view>
+
+     <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/open-textbook.png'></image>
+      <text>招收专业</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.majorId3}} {{list.majorName3}}</view>
+    </view>
+
+  <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/atom.png'></image>
+      <text>研究领域</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.researchField}}</view>
+    </view>
+
+    
+  </view>
+</view>
+
+
+        <view class='hint'>
+        <text >温馨提示：
+        如需完善信息或者修改信息，请加QQ群：630936270!</text>
+         </view>
+      </swiper-item>
+
+      <swiper-item>
+        <view class="group-body">
+          <view class="tutor-intr">
+            <text><text decode="{{true}}" space="{{true}}">&nbsp;</text>{{list.introduction}}</text>
+          </view>
+
+
+        </view>
+      </swiper-item>
+
+      <swiper-item>
+<view class="group-body">
+  <view class='table'>
+    <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/diploma.png'></image>
+      <text>专业名称</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.require.majorId}} {{list.require.majorName}}</view>
+    </view>
+
+  
+    <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/diploma.png'></image>
+      <text>政治成绩(>=)</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.require.politicsScore}}</view>
+    </view>
+
+     <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/diploma.png'></image>
+      <text>外语成绩(>=)</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.require.foreignScore}}</view>
+    </view>
+
+ <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/diploma.png'></image>
+      <text>业务课一(>=)</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.require.profession1Score}}</view>
+    </view>
+
+ <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/diploma.png'></image>
+      <text>业务课二(>=)</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.require.profession2Score}}</view>
+    </view>
+
+<view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/pencil-and-ruler.png'></image>
+      <text>同国家线(>=)</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.require.scoreLine}}</view>
+    </view>
+
+    <view class="table-tr">
+      <view class="table-ths">
+      <view class="table-item">
+      <image class='table-icon' src='../../images/pen.png'></image>
+      <text>其他要求</text>
+      </view>
+      </view>
+      <view class="table-th">{{list.require.otherInfo}}</view>
+    </view>
+  </view>
+</view>
+
+      </swiper-item>
+
+      <swiper-item>
+        <view class="group-body">
+          <text>
+      </text>
+        </view>
+      </swiper-item>
+    </swiper>
+
+  </view>
+
+</view>
