@@ -16,8 +16,8 @@ Page({
     titleArray: [],
     titleindex: 0,
     majorArray:[],
-    uploadimgs: ["../../images/solar-system.png"],
-
+    showimgs: ["http://www.profguider.cn/bktServer/sTutorImage/tutor0000.jpg"],
+    uploadimgs:'',
     name:'',
     departmentName:'',
     qq:'',
@@ -43,7 +43,8 @@ Page({
     majorId: '',
     majorName: '',
     scoreLine:'',
-    otherInfo:''
+    otherInfo:'',
+    departmentList:[]
   },
   onLoad: function () {
     this.fetchData()
@@ -60,7 +61,7 @@ Page({
       })
       
   }
-  //   else {
+     else {
     // 调用函数时，传入new Date()参数，返回值是日期和时间  
     var releaseDate = util.formatTime(new Date());
     // 再通过setData更改Page()里面的data，动态更新页面的数据  
@@ -80,16 +81,19 @@ Page({
     params.majorName3 = this.data.majorName3
     params.majorId = this.data.majorId
     params.majorName = this.data.majorName
+    params.attention=0
     console.log(params)
-    console.log(that.data.uploadimgs[0]);
+
     // wx.uploadFile({
     //   url: globalUrl +'/UploadTutorImage', //仅为示例，非真实的接口地址  
-    //   filePath: that.data.uploadimgs[0],
+    //   filePath: that.data.uploadimgs,
     //   name: 'image', //文件对应的参数名字(key)  
-    //  // formData: data,  //其它的表单信息  
+    //   formData: {
+    //     id:11111,
+    //     state:0
+    //   },  //其它的表单信息  
     //   header: {
     //     "content-type": "multipart/form-data",  
-    //     "content-type": "application/x-www-form-urlencoded"
     //   },
     //   success: function (res) {
     //     if (res.statusCode==500)
@@ -97,6 +101,19 @@ Page({
     //     console.log(res);
     //   } 
     // })
+
+wx.request({
+  url: globalUrl + '/UploadTutorImage',
+  header: { 'content-type': 'application/x-www-form-urlencoded' },
+  method: 'POST',
+  data: {
+    id:123,
+    image:that.data.uploadimgs,
+    state:0
+  },
+  success: function (res) { }
+})
+
 
     wx.request({
       url:globalUrl+'/AddTutor',
@@ -143,7 +160,7 @@ Page({
                 majorName: '',
                 scoreLine: '',
                 otherInfo: '',
-                uploadimgs: ["http://www.profguider.cn/bktServer/sTutorImage/tutor0000.jpg"]
+                showimgs: "http://www.profguider.cn/bktServer/sTutorImage/tutor0000.jpg"
               })
             }
             }
@@ -159,13 +176,12 @@ Page({
         })
       }
     })
-  //  }
+    }
   },
 
   formReset: function () {
     this.setData({
       titleindex: 0,
-      uploadimgs: ["http://www.profguider.cn/bktServer/sTutorImage/tutor0000.jpg"]
     })
   },
 
@@ -200,6 +216,7 @@ Page({
     var name = e.currentTarget.dataset.findex
     if (prefix != "") {
       switch(name){
+       
         case "1":
          this.data.schoolArray.forEach(function (e) {
           if (e.schoolName.indexOf(prefix) != -1) {
@@ -208,28 +225,28 @@ Page({
           break;
         case "2":
           this.data.majorArray.forEach(function (e) {
-            if (e.name.indexOf(prefix) != -1) {
+            if (e.zymc.indexOf(prefix) != -1) {
               newSource.push(e)
             } 
           })
           break;
         case "3":
           this.data.majorArray.forEach(function (e) {
-            if (e.name.indexOf(prefix) != -1) {
+            if (e.zymc.indexOf(prefix) != -1) {
               newSource.push(e)
             }
           })
           break;
         case "4":
           this.data.majorArray.forEach(function (e) {
-            if (e.name.indexOf(prefix) != -1) {
+            if (e.zymc.indexOf(prefix) != -1) {
               newSource.push(e)
             }
           })
           break;
         case "5":
           this.data.majorArray.forEach(function (e) {
-            if (e.name.indexOf(prefix) != -1) {
+            if (e.zymc.indexOf(prefix) != -1) {
               newSource.push(e)
             }
           })
@@ -247,16 +264,23 @@ Page({
     }
    
   },
+
   itemtap: function (e) {
     console.log(e);
     var name=e.target.dataset.itemname;
     switch(name){
+      case "department":
+       this.setData({
+         departmentName: e.target.dataset.xy,
+      })
+      break;
       case "school":
       this.setData({
       inputValue: e.target.dataset.id+' '+e.target.dataset.schoolname,
       schoolId: e.target.dataset.id,
       schoolName: e.target.dataset.schoolname
     })
+      this.getDepartment();
     break;
       case "major1":
         this.setData({
@@ -342,35 +366,66 @@ chooseImage: function () {
       sizeType: ['original', 'compressed'],
       sourceType: [type],
       success: function (res) {
+        wx.getFileSystemManager().readFile({
+          filePath: res.tempFilePaths[0], //选择图片返回的相对路径
+          encoding: 'base64', //编码格式
+          success: res => { //成功的回调
+            _this.setData({
+              uploadimgs: res.data
+            })
+            console.log(_this.data.uploadimgs);
+          }
+        })
         _this.setData({
-          uploadimgs: res.tempFilePaths,
+          showimgs: res.tempFilePaths,
           editable: true
         })
       }
     })
-    console.log(this.data.uploadimgs);
+   
    
   },
-  deleteImg: function (e) {
-    console.log(e.currentTarget.dataset.index);
-    const imgs = this.data.uploadimgs
-    Array.prototype.remove = function (i) {
-      const l = this.length;
-      if (l == 1) {
-        return []
-      } else if (i > 1) {
-        return [].concat(this.splice(0, i), this.splice(i + 1, l - 1))
-      }
-    }
-    this.setData({
-      uploadimgs: imgs.remove(e.currentTarget.dataset.index)
-    })
-    if (e.currentTarget.dataset.index==[]){
+
+  deleteImg: function () {
       this.setData({
-        uploadimgs: ["http://www.profguider.cn/bktServer/sTutorImage/tutor0000.jpg"],
+        showimgs: ["http://www.profguider.cn/bktServer/sTutorImage/tutor0000.jpg"],
         editable: false
       })
-    }
+    
 
   },
+
+
+  getDepartment: function () {
+    var that = this
+    that.setData({
+      departmentList: []
+    })
+    wx.request({
+      url: globalUrl + '/DepartmentList',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      data: {
+        schoolId: that.data.schoolId
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          departmentList: res.data
+        })
+      }
+
+    })
+  },
+
+  getDepartmentData:function(){
+    this.setData({
+      showfilter: true,
+      bindSource: this.data.departmentList,
+      showfilterindex:0
+    })
+  }
+
 })

@@ -10,7 +10,9 @@
 	"compileType": "miniprogram",
 	"libVersion": "1.7.2",
 	"appid": "wx1330e42447ea45ef",
-	"projectname": "ProfGuiderVersion2.0",
+	"projectname": "ProfGuiderVersion2.1",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

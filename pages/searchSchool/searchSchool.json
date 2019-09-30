@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "考研综合信息查询",
+	"usingComponents":{
+		"modalView":"../../components/modal/modal",
+		"modalList": "../../components/modallist/modallist"
+	}
+}

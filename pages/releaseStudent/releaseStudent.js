@@ -39,7 +39,10 @@ Page({
     adjustMajorId3: '',
     adjustMajorName3: '',
     socre: '',
-    otherInfo: ''
+    otherInfo: '',
+
+
+    subMajorList:[]
   },
   onLoad: function () {
     this.fetchData()
@@ -47,15 +50,15 @@ Page({
 
   formSubmit: function (e) {
     var that = this
-    // if (e.detail.value.name == '' || this.data.titleindex == 0 || this.data.choiceSchoolId == '' || this.data.choiceSchoolName == '' || this.data.adjustMajorId1 == '' || this.data.adjustMajorName1 == '' ) {
-    //   wx.showModal({
-    //     title: '提示',
-    //     content: '请填写必填项',
-    //     showCancel: false
-    //   })
+    if (e.detail.value.name == '' || this.data.titleindex == 0 || this.data.choiceSchoolId == '' || this.data.choiceSchoolName == '' || this.data.adjustMajorId1 == '' || this.data.adjustMajorName1 == '' ) {
+      wx.showModal({
+        title: '提示',
+        content: '请填写必填项',
+        showCancel: false
+      })
 
-    // }
-    // else {
+    }
+    else {
       // 调用函数时，传入new Date()参数，返回值是日期和时间  
       var releaseDate = util.formatTime(new Date());
       // 再通过setData更改Page()里面的data，动态更新页面的数据  
@@ -132,8 +135,8 @@ Page({
           })
         }
       })
-    },
-  //},
+    }
+  },
 
   formReset: function () {
     this.setData({
@@ -155,6 +158,7 @@ Page({
   bindPickerChange: function (e) { //下拉选择
     const eindex = e.detail.value;
     const name = e.currentTarget.dataset.pickername;
+    console.log(e)
     switch (name) {
       case 'province':
         this.setData({
@@ -183,31 +187,34 @@ Page({
           break;
         case "2":
           this.data.majorArray.forEach(function (e) {
-            if (e.name.indexOf(prefix) != -1) {
+            if (e.zymc.indexOf(prefix) != -1) {
               newSource.push(e)
             }
           })
           break;
         case "3":
           this.data.majorArray.forEach(function (e) {
-            if (e.name.indexOf(prefix) != -1) {
+            if (e.zymc.indexOf(prefix) != -1) {
               newSource.push(e)
             }
           })
           break;
         case "4":
           this.data.majorArray.forEach(function (e) {
-            if (e.name.indexOf(prefix) != -1) {
+            if (e.zymc.indexOf(prefix) != -1) {
               newSource.push(e)
             }
           })
           break;
         case "5":
-          this.data.majorArray.forEach(function (e) {
-            if (e.name.indexOf(prefix) != -1) {
+          if (this.data.choiceSchoolId!=''){
+          this.data.subMajorList.forEach(function (e) {
+            if (e.zymc.indexOf(prefix) != -1) {
               newSource.push(e)
             }
           })
+        }
+          
           break;
       }
       if (newSource.length != 0) {
@@ -222,6 +229,7 @@ Page({
     }
 
   },
+
   itemtap: function (e) {
     console.log(e);
     var name = e.target.dataset.itemname;
@@ -232,6 +240,7 @@ Page({
           choiceSchoolId: e.target.dataset.id,
           choiceSchoolName: e.target.dataset.schoolname
         })
+        this.getSubMajor();
         break;
       case "adjustMajor1":
         this.setData({
@@ -278,11 +287,19 @@ Page({
         bindSource: []
       })
     } else {
+      if(i==5){
+        this.setData({
+          showfilter: true,
+          showfilterindex: i,
+          bindSource: this.data.subMajorList
+        })
+      }else{
       this.setData({
         showfilter: true,
         showfilterindex: i,
         bindSource: [],
       })
+      }
     }
     console.log(d.showfilterindex);
   },
@@ -340,7 +357,30 @@ Page({
     this.setData({
       uploadimgs: imgs.remove(e.currentTarget.dataset.index)
     })
-
-
   },
+
+  getSubMajor: function () {
+    var that = this
+    that.setData({
+      subMajorList: []
+    })
+    wx.request({
+      url: globalUrl + '/GetSubMajorList',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      data: {
+        schoolId: that.data.choiceSchoolId
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          subMajorList: res.data
+        })
+      }
+
+    })
+  }
+
 })

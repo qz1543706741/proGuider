@@ -1,0 +1,28 @@
+<!--pages/enrolllist/enrolllist.wxml-->
+
+<view class="container-title">
+  <view style="display:inline;" bindtap="schoolTitleEvent" hover-class="hover-bg">
+    <text style="white-space: nowrap;">{{year}}年{{provinceName}}</text>
+    <text style="white-space: nowrap;">{{schoolName}}</text>
+    <text>{{majorName}}专业录取名单</text>
+  </view>
+</view>
+
+<view class="container-body">
+  <view class="container-body-column1">
+    <text class="container-body-text">考生姓名</text>
+    <text class="container-body-text">初试分数</text>
+    <text class="container-body-text">复试分数</text>
+    <text class="container-body-text">考取方式</text>
+    <text class="container-body-text">是否录取</text>
+    <text class="container-body-text">专项计划</text>
+  </view>
+  <view class="container-body-column2 {{index%2 == 1?'service-item':'service-item1'}}" wx:for="{{admissionList}}" wx:key="index" >
+    <text class="container-body-text">{{item.studentName}}</text>
+    <text class="container-body-text">{{item.chushiScore}}</text>
+    <text class="container-body-text">{{item.fushiScore}}</text>
+    <text class="container-body-text">{{item.istiaoji}}</text>
+    <text class="container-body-text">{{item.isenroll}}</text>
+    <text class="container-body-text">{{item.remark}}</text>
+  </view>
+</view>

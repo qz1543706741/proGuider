@@ -1,0 +1,12 @@
+<!--components/modal/modal.wxml-->
+<view class="container3" wx:if='{{show}}'>
+	<view class='modal-content'>
+		 <view class='main-content'>
+      <slot></slot>
+    </view>
+    <!-- <view class='modal-footer'>
+      <view wx:if='{{!single}}' class='cancel-btn' bindtap='cancel'>取消</view>
+      <view class='confirm-btn' bindtap='confirm'>确定 </view>
+    </view> -->
+	</view>
+</view>

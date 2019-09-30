@@ -1,235 +1,245 @@
 <view class="container">
   <view class='seletion'>
-
     <view class="header">
       <image class="tutor-header" src='https://www.profguider.com/bktServer{{list.imageAddress}}'></image>
 
-      <text class="tutor-name">{{list.name}}</text>
+      <view class='tutor-focus' data-code="{{list.id}}" data-name="{{list.name}}" data-school="{{list.schoolName}}" catchtap='page_focus' style="background-color: {{focus?'#CCCCCC':'#00BFFF'}}">
+        <image class='tutor-focus-icon' src='../../images/focus.png' hidden="{{focus}}"></image>
+        <text class='tutor-focus-text'>{{focus?"已关注":"关注"}}</text>
+      </view>
+
+      <view class="tutor-name">
+        <text class='tutor-name-rela'>{{list.name}}</text>
+        <image class='tutor-sex' src="{{list.sex=='男'?'../../images/man.png':'../../images/woman.png'}}"></image>
+      </view>
+
       <text class="tutor-shchool">{{list.schoolName}}</text>
+
+      <view class='tutor-fire' data-code="{{list.id}}">
+        <image class='tutor-focus-icon' src='../../images/fire.png'></image>
+        <text class='tutor-focus-text'>{{attention}}</text>
+      </view>
+
     </view>
 
   </view>
 
-
- 
   <view class='seletion'>
     <view class="swiper-tab">
       <view class="bre swiper-tab-list {{tab==0 ? 'on' : ''}}" data-current="0" bindtap="tab_click">基本信息</view>
       <view class="swiper-tab-list {{tab==1 ? 'on' : ''}}" data-current="1" bindtap="tab_click">导师简介</view>
-      <view class="swiper-tab-list {{tab==2 ? 'on' : ''}}" data-current="2" bindtap="tab_click">招生要求</view>
-      <view class="swiper-tab-list {{tab==3 ? 'on' : ''}}" data-current="3" bindtap="tab_click">得意门生</view>
+      <view class="swiper-tab-list {{tab==2 ? 'on' : ''}}" data-current="2" bindtap="tab_click">指导论文</view>
     </view>
 
     <swiper current="{{tab}}" class="swiper-box" duration="300" bindchange="tab_slide">
       <swiper-item class="swiper-box-active">
-<view class="group-body">
-  <view class='table'>
-    <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/educational-institution.png'></image>
-      <text>学校</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.schoolName}}</view>
-    </view>
-
-  
-    <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/column.png'></image>
-      <text>院系</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.departmentName}}</view>
-    </view>
-
-     <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/academic-hat.png'></image>
-      <text>职称</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.title}}</view>
-    </view>
-
- <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/qq.png'></image>
-      <text>QQ</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.qq}}</view>
-    </view>
-
- <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/email.png'></image>
-      <text>Email</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.email}}</view>
-    </view>
-
-    <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/phone.png'></image>
-      <text>手机号码</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.phone}}</view>
-    </view>
+        <scroll-view style='height:100%;' scroll-y>
+          <view class="group-body">
+            <view class='table'>
+              <view class="table-tr">
+                <view class="table-ths">
+                  <view class="table-item">
+                    <image class='table-icon' src='../../images/educational-institution.png'></image>
+                    <text>学校</text>
+                  </view>
+                </view>
+                <view class="table-th">{{list.schoolName}}</view>
+              </view>
 
 
-    <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/open-textbook.png'></image>
-      <text>招收专业</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.majorId1}} {{list.majorName1}}</view>
-    </view>
+              <view class="table-tr">
+                <view class="table-ths">
+                  <view class="table-item">
+                    <image class='table-icon' src='../../images/column.png'></image>
+                    <text>院系</text>
+                  </view>
+                </view>
+                <view class="table-th">{{list.departmentName}}</view>
+              </view>
 
-        <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/open-textbook.png'></image>
-      <text>招收专业</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.majorId2}} {{list.majorName2}}</view>
-    </view>
+              <view class="table-tr">
+                <view class="table-ths">
+                  <view class="table-item">
+                    <image class='table-icon' src='../../images/academic-hat.png'></image>
+                    <text>职称</text>
+                  </view>
+                </view>
+                <view class="table-th">{{list.title}}</view>
+              </view>
 
-     <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/open-textbook.png'></image>
-      <text>招收专业</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.majorId3}} {{list.majorName3}}</view>
-    </view>
+              <view class="table-tr">
+                <view class="table-ths">
+                  <view class="table-item">
+                    <image class='table-icon' src='../../images/qq.png'></image>
+                    <text>QQ</text>
+                  </view>
+                </view>
+                <view class="table-th">{{list.qq}}</view>
+              </view>
 
-  <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/atom.png'></image>
-      <text>研究领域</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.researchField}}</view>
-    </view>
+              <view class="table-tr">
+                <view class="table-ths">
+                  <view class="table-item">
+                    <image class='table-icon' src='../../images/email.png'></image>
+                    <text>Email</text>
+                  </view>
+                </view>
+                <view class="table-th">{{list.email}}</view>
+              </view>
 
-    
-  </view>
-</view>
+              <view class="table-tr">
+                <view class="table-ths">
+                  <view class="table-item">
+                    <image class='table-icon' src='../../images/phone.png'></image>
+                    <text>手机号码</text>
+                  </view>
+                </view>
+                <view class="table-th">{{list.phone}}</view>
+              </view>
 
 
-        <view class='hint'>
-        <text >温馨提示：
+              <view class="table-tr">
+                <view class="table-ths">
+                  <view class="table-item">
+                    <image class='table-icon' src='../../images/open-textbook.png'></image>
+                    <text>招收专业</text>
+                  </view>
+                </view>
+                <view class="table-th">{{list.majorId1}} {{list.majorName1}}</view>
+              </view>
+
+              <view class="table-tr">
+                <view class="table-ths">
+                  <view class="table-item">
+                    <image class='table-icon' src='../../images/open-textbook.png'></image>
+                    <text>招收专业</text>
+                  </view>
+                </view>
+                <view class="table-th">{{list.majorId2}} {{list.majorName2}}</view>
+              </view>
+
+              <view class="table-tr">
+                <view class="table-ths">
+                  <view class="table-item">
+                    <image class='table-icon' src='../../images/open-textbook.png'></image>
+                    <text>招收专业</text>
+                  </view>
+                </view>
+                <view class="table-th">{{list.majorId3}} {{list.majorName3}}</view>
+              </view>
+
+              <view class="table-tr">
+                <view class="table-ths">
+                  <view class="table-item">
+                    <image class='table-icon' src='../../images/atom.png'></image>
+                    <text>研究领域</text>
+                  </view>
+                </view>
+                <view class="table-th">{{list.researchField}}</view>
+              </view>
+            </view>
+          </view>
+          <view class='hint'>
+            <text>温馨提示：
         如需完善信息或者修改信息，请加QQ群：630936270!</text>
-         </view>
+          </view>
+        </scroll-view>
       </swiper-item>
 
+
+      <!-- 导师简介 -->
       <swiper-item>
-        <view class="group-body">
-          <view class="tutor-intr">
-            <text><text decode="{{true}}" space="{{true}}">&nbsp;</text>{{list.introduction}}</text>
+        <view class="weui-loadmore weui-loadmore_line" wx:if="{{!list.introduction}}">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无简介信息</view>
+        </view>
+        <scroll-view style='height:100%;' scroll-y wx:if="{{list.introduction}}">
+          <view class="group-body">
+            <!-- 个人介绍 -->
+            <view class="tutor-intr" wx:if="{{list.introduction}}">
+              <view style="text-align: center;height: 60rpx;">个人介绍</view>
+              <text>{{list.introduction}}</text>
+            </view>
           </view>
 
+          <view class="group-body">
+            <!-- 教育背景 -->
+            <view class="tutor-intr">
+              <view  style="text-align: center;height: 60rpx;">教育背景</view>
+              <text>{{list.education}}</text>
+            </view>
+          </view>
 
-        </view>
+          <view class="group-body">
+            <!-- 科研工作 -->
+            <view class="tutor-intr">
+              <view  style="text-align: center;height: 60rpx;">科研工作</view>
+              <text>{{list.work}}</text>
+            </view>
+          </view>
+        </scroll-view>
       </swiper-item>
 
-      <swiper-item>
-<view class="group-body">
-  <view class='table'>
-    <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/diploma.png'></image>
-      <text>专业名称</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.require.majorId}} {{list.require.majorName}}</view>
-    </view>
+      <swiper-item style="overflow:scroll;">
+        <view class="filter-flex" wx:if="{{!flag1}}">
+          <view class="filter-tab" style='font-size:25rpx;background-color: #FFFFE0	;'>
+            <text bindtap="setFilterPanel" data-findex="1" class="{{showfilterindex==1?'active':''}}">年份</text>
+            <text bindtap="setFilterPanel" data-findex="2" class="{{showfilterindex==2?'active':''}}">学位</text>
+            <text bindtap="setFilterPanel" data-findex="3" class="{{showfilterindex==3?'active':''}}">专业</text>
+          </view>
+          <view class="filter-content" wx:if="{{showfilter}}">
 
-  
-    <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/diploma.png'></image>
-      <text>政治成绩(>=)</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.require.politicsScore}}</view>
-    </view>
+            <view class="filter-panel" wx:if="{{showfilterindex==1}}">
+              <view class="filter-panel-buttom">
+                <view wx:for="{{yearList}}" wx:key="{{item.id}}" bindtap="setYearIndex" data-yearindex="{{index}}" data-year="{{item}}" class="{{yearindex==index?'active':''}}">{{item}}</view>
+              </view>
+            </view>
 
-     <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/diploma.png'></image>
-      <text>外语成绩(>=)</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.require.foreignScore}}</view>
-    </view>
 
- <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/diploma.png'></image>
-      <text>业务课一(>=)</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.require.profession1Score}}</view>
-    </view>
+            <view class="filter-panel" wx:if="{{showfilterindex==2}}">
+              <view class="filter-panel-buttom">
+                <view wx:for="{{levelList}}" wx:key="{{item.id}}" bindtap="setLevelIndex" data-levelindex="{{index}}" data-level="{{item}}" class="{{titleindex==index?'active':''}}">{{item}}</view>
+              </view>
+            </view>
 
- <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/diploma.png'></image>
-      <text>业务课二(>=)</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.require.profession2Score}}</view>
-    </view>
+            <view class="filter-panel" wx:if="{{showfilterindex==3}}">
+              <view class="filter-panel-buttom">
+                <view wx:for="{{majorList}}" wx:key="{{item.id}}" bindtap="setMajorIndex" data-majorindex="{{index}}" data-major="{{item}}" class="{{majorindex==index?'active':''}}">{{item}}</view>
+              </view>
+            </view>
 
-<view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/pencil-and-ruler.png'></image>
-      <text>同国家线(>=)</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.require.scoreLine}}</view>
-    </view>
-
-    <view class="table-tr">
-      <view class="table-ths">
-      <view class="table-item">
-      <image class='table-icon' src='../../images/pen.png'></image>
-      <text>其他要求</text>
-      </view>
-      </view>
-      <view class="table-th">{{list.require.otherInfo}}</view>
-    </view>
-  </view>
-</view>
-
-      </swiper-item>
-
-      <swiper-item>
-        <view class="group-body">
-          <text>
-      </text>
+          </view>
+          <view class="filter-shadow" wx:if="{{showfilter}}" bindtap="hideFilter"></view>
         </view>
+
+
+        <view class="weui-loadmore weui-loadmore_line" wx:if="{{flag1}}">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无指导信息</view>
+        </view>
+
+        <scroll-view style='height:100%;' scroll-y wx:if="{{!flag1}}">
+          <view class="group-body">
+            <view class="service-list">
+              <view class="service-item" wx:for="{{showList}}" data-index="{{index}}" wx:key="{{item.id}}" bindtap='gotitledetail'>
+                <view class="service-text">
+                  <view class="service-tite">
+                    <text style="width: 50%">学生姓名：{{item.author}}</text>
+                    <text style="width: 50%">专业：{{item.major}}</text>
+                  </view>
+                  <view class="service-tite">
+                    <text style="width: 50%">毕业年份：{{item.years}}</text>
+                    <text style="width: 50%">学位：{{item.levels}}</text>
+                  </view>
+                   <view class="service-tite">
+                    <text>论文题目：{{item.title}}</text>
+                  </view>
+                   <view class="service-tite">
+                    <text>关键字：{{item.keyword}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
       </swiper-item>
     </swiper>
 

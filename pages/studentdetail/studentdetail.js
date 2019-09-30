@@ -25,6 +25,7 @@ Page({
     })
     this.fetchFilterData();
 
+  console.log(options.list)
   },
 
   fetchFilterData: function () { //获取筛选条件

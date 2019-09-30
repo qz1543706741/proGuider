@@ -4,8 +4,8 @@
 App({
 
 globalData:{
-  globalUrl: 'https://www.profguider.com/bktServer'
-//globalUrl: 'http://localhost:8080/zdserver'
+globalUrl: 'https://www.profguider.com/bktServer'
+//globalUrl: 'http://localhost:8080'
 },
 
   onLaunch: function () {
@@ -14,7 +14,7 @@ globalData:{
     // 登录
     wx.login({
       success: function (res) {
-        that.getOpenId(res.code);
+        that.getOpenId(res.code)
       }
     })
   },

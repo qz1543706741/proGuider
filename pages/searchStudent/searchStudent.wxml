@@ -63,12 +63,12 @@
 	
     		<view class="filter-panel-all" wx:if="{{showfilterindex==3}}">
         	<view class="search-bars">
-            <view class="notchoice" bindtap='notChoice2' >不限</view>
-           <input  data-findex="2" style='text-align:center'  bindinput="bindinput" value="{{inputValue}}" placeholder="请输入专业关键字" />
+            <view class="notchoice"  bindtap='notChoice2' >不限</view>
+           <input  data-findex="2" style='text-align:center' bindblur='showSubMajor'  bindinput="bindinput" value="{{inputValue}}" placeholder="请输入专业关键字" />
         </view>
 				<view class="filter-panel-buttom" wx-if="{{open}}">
 				  <view wx:for="{{bindSource}}" wx:key="id">
-           <view data-itemname="major" data-majorid="{{item.id}}" data-majorname='{{item.name}}'  bindtap="setMajorIndex" data-majorindex="{{index}}" class="{{majorindex==index?'active':''}}">{{item.id}} {{item.name}}</view>
+           <view data-itemname="major" data-majorid="{{item.zydm}}" data-majorname='{{item.zymc}}'  bindtap="setMajorIndex" data-majorindex="{{index}}" class="{{majorindex==index?'active':''}}">{{item.zydm}} {{item.zymc}}</view>
       </view>
        </view>
 			</view>
@@ -84,13 +84,13 @@
         </view>
 				<view class="filter-panel-buttom" wx-if="{{open}}">
 				  <view wx:for="{{bindSource}}" wx:key="id">
-           <view data-itemname="adjustmajor" data-adjustmajorid="{{item.id}}" data-adjustmajorname='{{item.name}}'  bindtap="setAdjustMajorIndex" data-adjustmajorindex="{{index}}" class="{{adjustmajorindex==index?'active':''}}">{{item.id}} {{item.name}}</view>
+           <view data-itemname="adjustmajor" data-adjustmajorid="{{item.zydm}}" data-adjustmajorname='{{item.zymc}}'  bindtap="setAdjustMajorIndex" data-adjustmajorindex="{{index}}" class="{{adjustmajorindex==index?'active':''}}">{{item.zydm}} {{item.zymc}}</view>
       </view>
        </view>
 			</view>
 
 		</view>
-		<view class="filter-shadow" wx:if="{{showfilter}}" bindtap="hideFilter"></view>
+
 	</view>
 
 

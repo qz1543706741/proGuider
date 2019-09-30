@@ -1,0 +1,807 @@
+<view class="container">
+  <modalView wx:if="{{modalShow}}">
+    <view wx:for="{{schoolTitleList}}" wx:key="*this">
+      <view style="width:100%;padding: 10rpx 0; border-bottom: 1rpx solid #e8e8e8;" bindtap="schoolTitleSelectEvent" data-selectid="{{index}}">{{item}}</view>
+    </view>
+  </modalView>
+
+  <modalList wx:if="{{modalShow1}}" majorItemSelectedList="{{majorItemSelectedList}}" bind:myConfirm="myConfirm">
+    <scroll-view scroll-y>
+      <view wx:for="{{subMajorList}}" wx:key="{{item.zymc}}">
+        <view class="listitem">
+          <icon hidden="{{majorItemSelected[index]}}" class="listitem-column-img" type="success_no_circle" size="20" color="green"></icon>
+          <view class="listitem-column-list" style="{{majorItemSelected[index]?'':'color:green;'}}" data-selectid="{{index}}" wx:key="{{item.zydm}}" data-majorindex="{{index}}" data-majorname="{{item.zymc}}" data-majorid="{{item.zydm}}" bindtap="getMajorItemSelectList">{{item.zymc}}</view>
+        </view>
+      </view>
+    </scroll-view>
+  </modalList>
+
+  <modalList wx:if="{{modalShow2}}" schoolItemSelectedList="{{schoolItemSelectedList}}" bind:myConfirm="myConfirm">
+    <scroll-view scroll-y>
+      <view wx:for="{{subSchoolListSearchByMajor}}" wx:key="{{item.schoolName}}">
+        <view class="listitem">
+          <icon hidden="{{schoolItemSelected[index]}}" class="listitem-column-img" type="success_no_circle" size="20" color="green"></icon>
+          <view class="listitem-column-list" style="{{schoolItemSelected[index]?'':'color:green;'}}" data-selectid="{{index}}" wx:key="{{item.schoolId}}" data-schoolindex="{{index}}" data-schoolname="{{item.schoolName}}" data-schoolid="{{item.schoolId}}" bindtap="getSchooltemSelectList">{{item.schoolName}}</view>
+        </view>
+      </view>
+    </scroll-view>
+  </modalList>
+
+  <!-- 查询头 -->
+  <view class="container1">
+    <view style="width:100%;" class="search-flex {{scrolltop>200?'tophide':''}}">
+      <view class="search-bar">
+        <input type="text" maxlength="12" placeholder="请输入院校名称查询" bindinput="inputSearch" bindblur='bindblurSearch'></input>
+        <button class="search-btn" bindtap="submitSearch" wx:if="{{showsearch}}">搜索</button>
+      </view>
+    </view>
+    <view class="filter-flex">
+      <view class="filter-tab">
+        <text bindtap="setFilterPanel" data-findex="1" class="{{showfilterindex==true?'active':''}}">搜索</text>
+      </view>
+      <view class="filter-content" wx:if="{{showfilterindex}}">
+        <view class="filter-tab">
+          <text class="active">地区</text>
+          <text class="active">院校</text>
+          <text class="active">专业</text>
+        </view>
+
+        <view class="filter-panel" wx:if="{{showfilterindex}}">
+
+          <view class="filter-panel-right">
+
+            <view wx:for="{{filterdata.province}}" wx:key="{{item.id}}" bindtap="setSubsortIndex" data-title="{{item.title}}" data-subsortindex="{{index}}" data-subsortid="{{item.id}}" class="{{subsortindex==index?'active':''}}">{{item.title}}</view>
+          </view>
+          <view class="filter-panel-right">
+
+            <view wx:for="{{subSchoolList}}" wx:key="{{item.id}}" bindtap="setSchoolIndex" data-schoolname="{{item.schoolName}}" data-schoolindex="{{index}}" data-schoolid="{{item.id}}" class="{{schoolindex==index?'active':''}}">{{item.schoolName}}</view>
+          </view>
+          <view class="filter-panel-right">
+            <view wx:for="{{subMajorList}}" wx:key="{{item.zydm}}" bindtap="setMajorIndex" data-majorindex="{{index}}" data-majorname="{{item.zymc}}" data-majorid="{{item.zydm}}" class="{{majorindex==index?'active':''}}">{{item.zymc}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="container2" hidden="{{listHidden}}" wx:if="{{showfilterindex == null && subResultList2017!=''}}">
+
+    <scroll-view class="container-body" scroll-y="true" scroll-with-animation="true" scroll-top="{{scrolltop}}" bindscroll="scrollHandle" lower-threshold="50" bindscrolltolower="scrollLoading">
+
+      <!-- 标题：录取信息 -->
+      <view style="text-align:center;padding:2% 0px;background:#00BFFF;color:#ffffff;border-bottom: 1rpx solid #e8e8e8;" wx:if="{{showfilterindex == null && subResultList2017!=''}}" hover-class="hover-bg">
+        <view style="display:inline;" bindtap="schoolTitleEvent">
+          <text style="white-space: nowrap;">{{provinceName}}</text>
+          <text style="white-space: nowrap;">{{schoolName}}</text>
+          <text>{{majorName}}专业录取信息</text>
+        </view>
+      </view>
+
+      <!-- 录取信息列表 -->
+      <view class="filter-tab1">
+        <view class="filter-tab1-column">
+          <view wx:for="{{tableTitleList}}" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+            <block wx:if="{{index==5}}">
+              <view class="filter-tab1" style="height:340rpx;">
+                <!-- <view class="filter-tab1-column1">
+                    <text>复</text> 
+                    <text>试</text>
+                    <text>线</text>
+                </view> -->
+                <view class="filter-tab1-column1">
+                  <text class="filter-tab2" style="font-size:30rpx;">{{subResultList2019.foreignCourse}}</text>
+                  <text class="filter-tab2" style="font-size:30rpx;">{{subResultList2019.politicsCourse}}</text>
+                  <text class="filter-tab2" style="font-size:30rpx;">{{subResultList2019.majorCourse_1}}</text>
+                  <text class="filter-tab2" style="font-size:30rpx;">{{subResultList2019.majorCourse_2}}</text>
+                  <text class="filter-tab2" style="font-size:30rpx;">分数线</text>
+                </view>
+              </view>
+            </block>
+            <block wx:else>
+              <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">{{item}}</view>
+            </block>
+          </view>
+        </view>
+        <view class="filter-tab1-column" style="display:inline-block;width:25%;">
+          <view wx:for="{{tableTitleList}}" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+            <block wx:if="{{index==0}}">
+              <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">2019</view>
+            </block>
+            <block wx:if="{{index==1}}">
+              <view style="height:60rpx;display:flex;flex-direction:row;justify-content:center;align-items: center;text-align:center;font-size:28rpx;width:70%;">
+                {{subResultList2019.FushiFirstNum}}人({{subResultList2017.FushiTiaoji}}人调剂)
+              </view>
+            </block>
+            <block wx:if="{{index==2}}">
+              <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word;" data-year="2019" data-index="1" bindtap="getEnrollList">
+                {{subResultList2019.EnrollNum}}
+              </view>
+            </block>
+            <block wx:if="{{index==3}}">
+              <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                {{subResultList2019.TiaojiNum}}
+              </view>
+            </block>
+            <block wx:if="{{index==4}}">
+              <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                {{subResultList2019.TuimianNum}}
+              </view>
+            </block>
+            <block wx:if="{{index==5}}">
+              <view class="filter-tab1" style="height:340rpx;">
+                <view class="filter-tab1-column1">
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2019.Score100}} / {{subResultList2019.nationEqual100}}</view>
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2019.Score100}} / {{subResultList2019.nationEqual100}}</view>
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2019.Score150}} / {{subResultList2019.nationLarger150}}</view>
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2019.Score150}} / {{subResultList2019.nationLarger150}}</view>
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2019.ScoreTotal}} / {{subResultList2019.nationTotalscore}}</view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+        <view class="filter-tab1-column" style="display:inline-block;width:25%;">
+          <view wx:for="{{tableTitleList}}" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+            <block wx:if="{{index==0}}">
+              <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">2018</view>
+            </block>
+            <block wx:if="{{index==1}}">
+              <view style="height:60rpx;display:flex;flex-direction:row;justify-content:center;align-items: center;text-align:center;font-size:28rpx;width:70%;">
+                {{subResultList2018.FushiFirstNum}}人({{subResultList2018.FushiTiaoji}}人调剂)
+              </view>
+            </block>
+            <block wx:if="{{index==2}}">
+              <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; " data-year="2018" data-index="1" bindtap="getEnrollList">
+                {{subResultList2018.EnrollNum}}
+              </view>
+            </block>
+            <block wx:if="{{index==3}}">
+              <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                {{subResultList2018.TiaojiNum}}
+              </view>
+            </block>
+            <block wx:if="{{index==4}}">
+              <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                {{subResultList2018.TuimianNum}}
+              </view>
+            </block>
+            <block wx:if="{{index==5}}">
+              <view class="filter-tab1" style="height:340rpx;">
+
+                <view class="filter-tab1-column1">
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2018.Score100}} / {{subResultList2018.nationEqual100}}</view>
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2018.Score100}} / {{subResultList2018.nationEqual100}}</view>
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2018.Score150}} / {{subResultList2018.nationLarger150}}</view>
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2018.Score150}} / {{subResultList2018.nationLarger150}}</view>
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2018.ScoreTotal}} / {{subResultList2018.nationTotalscore}}</view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+        <view class="filter-tab1-column" style="display:inline-block;width:25%;">
+          <view wx:for="{{tableTitleList}}" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+            <block wx:if="{{index==0}}">
+              <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word;">2017</view>
+            </block>
+            <block wx:if="{{index==1}}">
+              <view style="height:60rpx;display:flex;flex-direction:row;justify-content:center;align-items: center;text-align:center;font-size:28rpx;width:70%;">
+                {{subResultList2017.FushiFirstNum}}人({{subResultList2017.FushiTiaoji}}人调剂)
+              </view>
+            </block>
+            <block wx:if="{{index==2}}">
+              <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word;" data-year="2017" data-index="1" bindtap="getEnrollList">
+                {{subResultList2017.EnrollNum}}
+              </view>
+            </block>
+            <block wx:if="{{index==3}}">
+              <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                {{subResultList2017.TiaojiNum}}
+              </view>
+            </block>
+            <block wx:if="{{index==4}}">
+              <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                {{subResultList2017.TuimianNum}}
+              </view>
+            </block>
+            <block wx:if="{{index==5}}">
+              <view class="filter-tab1" style="height:340rpx;">
+                <view class="filter-tab1-column1">
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2017.Score100}} / {{subResultList2018.nationEqual100}}</view>
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2017.Score100}} / {{subResultList2018.nationEqual100}}</view>
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2017.Score150}} / {{subResultList2018.nationLarger150}}</view>
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2017.Score150}} / {{subResultList2018.nationLarger150}}</view>
+                  <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2017.ScoreTotal}} / {{subResultList2018.nationTotalscore}}</view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+
+      </view>
+
+      <!-- 标题：导师信息 -->
+      <view style="text-align:center;padding:2% 0px;background:#00BFFF;color:#ffffff;border-bottom: 1rpx solid #e8e8e8;" wx:if="{{showfilterindex == null && subResultList2017!=''}}">
+        <view style="display:inline;">
+          <text style="white-space: nowrap;">{{provinceName}}</text>
+          <text style="white-space: nowrap;">{{schoolName}}</text>
+          <text>{{majorName}}专业导师信息</text>
+        </view>
+      </view>
+
+      <!-- 导师信息列表 -->
+      <view class="service-list">
+        <view wx:if="{{servicelist == ''}}" style="text-align:center;padding:2% 0px;color:#000000;">更多信息正在火速搜集中，敬请期待</view>
+        <view class="service-item" wx:for="{{servicelist}}" data-index="{{index}}" data-id="{{item.id}}" wx:key="{{item.id}}" bindtap='gotutordetail'>
+          <view class="service-img">
+            <image src="https://www.profguider.com/bktServer{{item.imageAddress}}" mode="aspectFill"></image>
+          </view>
+          <view class="service-text">
+            <view class="service-tite">姓名：{{item.name}}</view>
+            <view class="service-tags">
+              <text class="service-tite">学校： {{item.schoolName}}</text>
+            </view>
+            <view>
+              <text class="service-city">招收专业：<text wx-if="{{item.majorName1}}"> ①{{item.majorName1}}</text>
+              <text class="service-city-text" wx-if="{{item.majorName2}}">②{{item.majorName2}}</text>
+              <text class="service-city-text" wx-if="{{item.majorName3}}">③{{item.majorName3}}</text>
+              </text>
+            </view>
+          </view>
+
+        </view>
+      </view>
+
+    </scroll-view>
+  </view>
+
+  <view class="container2" hidden="{{listSearchByModalView}}">
+    <!-- 标题：录取信息 -->
+
+    <!-- ------2019---- -->
+    <view wx:if="{{itemSelectId === 0}}" style="text-align:center;padding:2% 0px;background:#00BFFF;color:#ffffff;border-bottom: 1rpx solid #e8e8e8;">
+      <view style="display:inline;" bindtap="schoolTitleEvent">
+        <text style="white-space: nowrap;">2019年</text>
+        <text style="white-space: nowrap;">{{majorName}}</text>
+        <text>专业各学校录取信息</text>
+      </view>
+    </view>
+    <view class="filter-tab1" style="width:100%">
+      <view class="filter-tab1-column">
+        <view wx:for="{{tableTitleList2}}" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+          <block wx:if="{{index==5}}">
+            <view class="filter-tab1" style="height:340rpx;">
+              <view class="filter-tab1-column1">
+                <view class="filter-tab1-column1">
+                  <text>复</text>
+                  <text>试</text>
+                  <text>线</text>
+                </view>
+              </view>
+              <view class="filter-tab1-column1">
+                <text class="filter-tab2" style="font-size:30rpx;">英语</text>
+                <text class="filter-tab2" style="font-size:30rpx;">政治</text>
+                <text class="filter-tab2" style="font-size:30rpx;">专业课1</text>
+                <text class="filter-tab2" style="font-size:30rpx;">专业课2</text>
+                <text class="filter-tab2" style="font-size:30rpx;">总分</text>
+              </view>
+            </view>
+          </block>
+          <block wx:elif="{{index==0}}">
+            <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">{{item}}</view>
+          </block>
+          <block wx:else>
+            <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">{{item}}</view>
+          </block>
+        </view>
+      </view>
+
+      <scroll-view scroll-x style="width:65%;overflow-x: hidden;" wx:key="{{item.zymc}}">
+        <view style="flex-direction:row;width:100%;overflow-x: auto;white-space:nowrap;">
+          <!-- ---------------------------------------------------------------------------------------- -->
+          <block wx:for="{{schoolItemSelectedMajorInfoList1}}" wx:key="{{item.zymc}}" wx:for-item="schoolItemList" wx:for-index="ids">
+            <!-- <view style="display:inline-block;width:80%;margin:0rpx 10rpx;">{{item.zymc}}</view> -->
+            <view class="{{schoolItemSelectedMajorInfoList1.length>1?'filter-tab1-column2':'filter-tab1-column2-1'}}" style="display:inline-block;">
+
+              <view wx:for="{{tableTitleList}}" wx:for-item="items" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+                <block wx:if="{{index==0}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;width:100%;font-size:28rpx;white-space:normal;text-align:center;">{{schoolItemList.schoolName}}</view>
+                </block>
+                <block wx:if="{{index==1}}">
+                  <view style="height:60rpx;display:flex;flex-direction:row;justify-content:center;align-items: center;text-align:center;font-size:28rpx;white-space:normal;" data-year="2019" data-name="{{schoolItemList.schoolName}}" bindtap="getEnrollList">
+                    {{subResultList2019.FushiFirstNum}}人({{subResultList2019.FushiTiaoji}}人调剂)
+                  </view>
+                </block>
+                <block wx:if="{{index==2}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subResultList2019.EnrollNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==3}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subResultList2019.TiaojiNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==4}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subResultList2019.TuimianNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==5}}">
+                  <view class="filter-tab1" style="height:340rpx;">
+
+                    <view class="filter-tab1-column1">
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2019.Score100}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2019.Score100}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2019.Score150}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2019.Score150}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2019.ScoreTotal}}</view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+
+
+            </view>
+          </block>
+          <!-- ---------------------------------------------------------------------------------------- -->
+        </view>
+
+      </scroll-view>
+
+    </view>
+
+    <!-- ------2018---- -->
+    <view wx:if="{{itemSelectId === 0}}" style="text-align:center;padding:2% 0px;background:#00BFFF;color:#ffffff;border-bottom: 1rpx solid #e8e8e8; ">
+      <view style="display:inline;" bindtap="schoolTitleEvent">
+        <text style="white-space: nowrap;">2018年</text>
+        <text style="white-space: nowrap;">{{majorName}}</text>
+        <text>专业各学校录取信息</text>
+      </view>
+    </view>
+    <view class="filter-tab1" style="width:100%">
+      <view class="filter-tab1-column">
+        <view wx:for="{{tableTitleList2}}" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+          <block wx:if="{{index==5}}">
+            <view class="filter-tab1" style="height:340rpx;">
+              <view class="filter-tab1-column1">
+                <view class="filter-tab1-column1">
+                  <text>复</text>
+                  <text>试</text>
+                  <text>线</text>
+                </view>
+              </view>
+              <view class="filter-tab1-column1">
+                <text class="filter-tab2" style="font-size:30rpx;">英语</text>
+                <text class="filter-tab2" style="font-size:30rpx;">政治</text>
+                <text class="filter-tab2" style="font-size:30rpx;">专业课1</text>
+                <text class="filter-tab2" style="font-size:30rpx;">专业课2</text>
+                <text class="filter-tab2" style="font-size:30rpx;">总分</text>
+              </view>
+            </view>
+          </block>
+          <block wx:elif="{{index==0}}">
+            <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">{{item}}</view>
+          </block>
+          <block wx:else>
+            <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">{{item}}</view>
+          </block>
+        </view>
+      </view>
+
+      <scroll-view scroll-x style="width:65%;overflow-x: hidden;" wx:key="{{item.zymc}}">
+        <view style="flex-direction:row;width:100%;overflow-x: auto;white-space:nowrap;">
+
+          <block wx:for="{{schoolItemSelectedMajorInfoList1}}" wx:key="{{item.zymc}}" wx:for-item="schoolItemList" wx:for-index="ids">
+            <!-- <view style="display:inline-block;width:80%;margin:0rpx 10rpx;">{{item.zymc}}</view> -->
+            <view class="{{schoolItemSelectedMajorInfoList1.length>1?'filter-tab1-column2':'filter-tab1-column2-1'}}" style="display:inline-block;">
+
+              <view wx:for="{{tableTitleList}}" wx:for-item="items" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+                <block wx:if="{{index==0}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;width:100%;font-size:28rpx;white-space:normal;text-align:center;">{{schoolItemList.schoolName}}</view>
+                </block>
+                <block wx:if="{{index==1}}">
+                  <view style="height:60rpx;display:flex;flex-direction:row;justify-content:center;align-items: center;text-align:center;font-size:28rpx;white-space:normal;" data-year="2018" data-name="{{schoolItemList.schoolName}}" bindtap="getEnrollList">
+                    {{subResultList2018.FushiFirstNum}}人({{subResultList2018.FushiTiaoji}}人调剂)
+                  </view>
+                </block>
+                <block wx:if="{{index==2}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subResultList2018.EnrollNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==3}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subResultList2018.TiaojiNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==4}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subResultList2018.TuimianNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==5}}">
+                  <view class="filter-tab1" style="height:340rpx;">
+
+                    <view class="filter-tab1-column1">
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2018.Score100}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2018.Score100}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2018.Score150}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2018.Score150}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2018.ScoreTotal}}</view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+            </view>
+          </block>
+
+        </view>
+
+      </scroll-view>
+
+    </view>
+
+    <!-- ------2017---- -->
+    <view wx:if="{{itemSelectId === 0}}" style="text-align:center;padding:2% 0px;background:#00BFFF;color:#ffffff;border-bottom: 1rpx solid #e8e8e8;">
+      <view style="display:inline;" bindtap="schoolTitleEvent">
+        <text style="white-space: nowrap;">2017年</text>
+        <text style="white-space: nowrap;">{{majorName}}</text>
+        <text>专业各学校录取信息</text>
+      </view>
+    </view>
+    <view class="filter-tab1" style="width:100%">
+      <view class="filter-tab1-column">
+        <view wx:for="{{tableTitleList2}}" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+          <block wx:if="{{index==5}}">
+            <view class="filter-tab1" style="height:340rpx;">
+              <view class="filter-tab1-column1">
+                <view class="filter-tab1-column1">
+                  <text>复</text>
+                  <text>试</text>
+                  <text>线</text>
+                </view>
+              </view>
+              <view class="filter-tab1-column1">
+                <text class="filter-tab2" style="font-size:30rpx;">英语</text>
+                <text class="filter-tab2" style="font-size:30rpx;">政治</text>
+                <text class="filter-tab2" style="font-size:30rpx;">专业课1</text>
+                <text class="filter-tab2" style="font-size:30rpx;">专业课2</text>
+                <text class="filter-tab2" style="font-size:30rpx;">总分</text>
+              </view>
+            </view>
+          </block>
+          <block wx:elif="{{index==0}}">
+            <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">{{item}}</view>
+          </block>
+          <block wx:else>
+            <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">{{item}}</view>
+          </block>
+        </view>
+      </view>
+
+      <scroll-view scroll-x style="width:65%;overflow-x: hidden;" wx:key="{{item.zymc}}">
+        <view style="flex-direction:row;width:100%;overflow-x: auto;white-space:nowrap;">
+          <!-- ---------------------------------------------------------------------------------------- -->
+          <block wx:for="{{schoolItemSelectedMajorInfoList1}}" wx:key="{{item.zymc}}" wx:for-item="schoolItemList" wx:for-index="ids">
+            <!-- <view style="display:inline-block;width:80%;margin:0rpx 10rpx;">{{item.zymc}}</view> -->
+            <view class="{{schoolItemSelectedMajorInfoList1.length>1?'filter-tab1-column2':'filter-tab1-column2-1'}}" style="display:inline-block;">
+
+              <view wx:for="{{tableTitleList}}" wx:for-item="items" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+                <block wx:if="{{index==0}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;width:100%;font-size:28rpx;white-space:normal;text-align:center;">{{schoolItemList.schoolName}}</view>
+                </block>
+                <block wx:if="{{index==1}}">
+                  <view style="height:60rpx;display:flex;flex-direction:row;justify-content:center;align-items: center;text-align:center;font-size:28rpx;white-space:normal;" data-year="2017" data-name="{{schoolItemList.schoolName}}" bindtap="getEnrollList">
+                    {{subResultList2017.FushiFirstNum}}人({{subResultList2017.FushiTiaoji}}人调剂)
+                  </view>
+                </block>
+                <block wx:if="{{index==2}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subResultList2017.EnrollNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==3}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subResultList2017.TiaojiNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==4}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subResultList2017.TuimianNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==5}}">
+                  <view class="filter-tab1" style="height:340rpx;">
+
+                    <view class="filter-tab1-column1">
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2017.Score100}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2017.Score100}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2017.Score150}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2017.Score150}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subResultList2017.ScoreTotal}}</view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+
+
+            </view>
+          </block>
+          <!-- ---------------------------------------------------------------------------------------- -->
+        </view>
+
+      </scroll-view>
+
+    </view>
+
+
+
+    <!-- 标题：录取信息 -->
+    <view wx:if="{{itemSelectId === 1 && majorItemSelectedListSize !== 1}}" style="text-align:center;padding:2% 0px;background:#00BFFF;color:#ffffff;border-bottom: 1rpx solid #e8e8e8;">
+      <view style="display:inline;" bindtap="schoolTitleEvent">
+        <text style="white-space: nowrap;">2019年{{provinceName}}</text>
+        <text style="white-space: nowrap;">{{schoolName}}</text>
+        <text>各专业录取信息</text>
+      </view>
+    </view>
+    <view wx:if="{{itemSelectId === 1 && majorItemSelectedListSize !== 1}}" class="filter-tab1" style="width:100%">
+      <view class="filter-tab1-column">
+        <view wx:for="{{tableTitleList}}" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+          <block wx:if="{{index==5}}">
+            <view class="filter-tab1" style="height:340rpx;">
+              <view class="filter-tab1-column1">
+                <view class="filter-tab1-column1">
+                  <text>复</text>
+                  <text>试</text>
+                  <text>线</text>
+                </view>
+              </view>
+              <view class="filter-tab1-column1">
+                <text class="filter-tab2" style="font-size:30rpx;">英语</text>
+                <text class="filter-tab2" style="font-size:30rpx;">政治</text>
+                <text class="filter-tab2" style="font-size:30rpx;">专业课1</text>
+                <text class="filter-tab2" style="font-size:30rpx;">专业课2</text>
+                <text class="filter-tab2" style="font-size:30rpx;">总分</text>
+              </view>
+            </view>
+          </block>
+          <block wx:elif="{{index==0}}">
+            <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">专业名称</view>
+          </block>
+          <block wx:else>
+            <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">{{item}}</view>
+          </block>
+        </view>
+      </view>
+      <scroll-view scroll-x style="width:65%;overflow-x: hidden;" wx:key="{{item.zymc}}">
+        <view style="flex-direction:row;width:100%;overflow-x: auto;white-space:nowrap;">
+          <block wx:for="{{majorItemSelectedList}}" wx:key="{{item.zymc}}" wx:for-item="item" wx:for-index="indexs">
+            <!-- <view style="display:inline-block;width:80%;margin:0rpx 10rpx;">{{item.zymc}}</view> -->
+            <view class="filter-tab1-column2" style="display:inline-block;width:50%;">
+
+              <view wx:for="{{tableTitleList}}" wx:for-item="items" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+                <block wx:if="{{index==0}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;width:100%;font-size:28rpx;white-space:normal;text-align:center;">{{item.zymc}}</view>
+                </block>
+                <block wx:if="{{index==1}}">
+                  <view style="height:60rpx;display:flex;flex-direction:row;justify-content:center;align-items: center;text-align:center;font-size:28rpx;white-space:normal;">
+                    {{subSelectResultList2019[indexs].FushiFirstNum}}人({{subSelectResultList2019[indexs].FushiTiaoji}}人调剂)
+                  </view>
+                </block>
+                <block wx:if="{{index==2}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subSelectResultList2019[indexs].EnrollNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==3}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subSelectResultList2019[indexs].TiaojiNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==4}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subSelectResultList2019[indexs].TuimianNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==5}}">
+                  <view class="filter-tab1" style="height:340rpx;">
+
+                    <view class="filter-tab1-column1">
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2019[indexs].Score100}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2019[indexs].Score100}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2019[indexs].Score150}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2019[indexs].Score150}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2019[indexs].ScoreTotal}}</view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+
+
+            </view>
+          </block>
+        </view>
+
+      </scroll-view>
+
+    </view>
+    <view wx:if="{{itemSelectId === 1 && majorItemSelectedListSize !== 1}}" style="text-align:center;padding:2% 0px;background:#00BFFF;color:#ffffff;border-bottom: 1rpx solid #e8e8e8;" hover-class="hover-bg">
+      <view style="display:inline;" bindtap="schoolTitleEvent">
+        <text style="white-space: nowrap;">2018年{{provinceName}}</text>
+        <text style="white-space: nowrap;">{{schoolName}}</text>
+        <text>各专业录取信息</text>
+      </view>
+    </view>
+    <view wx:if="{{itemSelectId === 1 && majorItemSelectedListSize !== 1}}" class="filter-tab1" style="width:100%">
+      <view class="filter-tab1-column">
+        <view wx:for="{{tableTitleList}}" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+          <block wx:if="{{index==5}}">
+            <view class="filter-tab1" style="height:340rpx;">
+              <view class="filter-tab1-column1">
+                <view class="filter-tab1-column1">
+                  <text>复</text>
+                  <text>试</text>
+                  <text>线</text>
+                </view>
+              </view>
+              <view class="filter-tab1-column1">
+                <text class="filter-tab2" style="font-size:30rpx;">英语</text>
+                <text class="filter-tab2" style="font-size:30rpx;">政治</text>
+                <text class="filter-tab2" style="font-size:30rpx;">专业课1</text>
+                <text class="filter-tab2" style="font-size:30rpx;">专业课2</text>
+                <text class="filter-tab2" style="font-size:30rpx;">总分</text>
+              </view>
+            </view>
+          </block>
+          <block wx:elif="{{index==0}}">
+            <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">专业名称</view>
+          </block>
+          <block wx:else>
+            <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">{{item}}</view>
+          </block>
+        </view>
+      </view>
+      <scroll-view scroll-x style="width:65%;overflow-x: hidden;" wx:key="{{item.zymc}}">
+        <view style="flex-direction:row;width:100%;overflow-x: auto;white-space:nowrap;">
+          <block wx:for="{{majorItemSelectedList}}" wx:key="{{item.zymc}}" wx:for-item="item" wx:for-index="indexs">
+            <!-- <view style="display:inline-block;width:80%;margin:0rpx 10rpx;">{{item.zymc}}</view> -->
+            <view class="filter-tab1-column2" style="display:inline-block;width:50%;">
+
+              <view wx:for="{{tableTitleList}}" wx:for-item="items" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+                <block wx:if="{{index==0}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;width:100%;font-size:28rpx;white-space:normal;text-align:center;">{{item.zymc}}</view>
+                </block>
+                <block wx:if="{{index==1}}">
+                  <view style="height:60rpx;display:flex;flex-direction:row;justify-content:center;align-items: center;text-align:center;font-size:28rpx;white-space:normal;">
+                    {{subSelectResultList2018[indexs].FushiFirstNum}}人({{subSelectResultList2018[indexs].FushiTiaoji}}人调剂)
+                  </view>
+                </block>
+                <block wx:if="{{index==2}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subSelectResultList2018[indexs].EnrollNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==3}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subSelectResultList2018[indexs].TiaojiNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==4}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subSelectResultList2018[indexs].TuimianNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==5}}">
+                  <view class="filter-tab1" style="height:340rpx;">
+
+                    <view class="filter-tab1-column1">
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2018[indexs].Score100}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2018[indexs].Score100}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2018[indexs].Score150}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2018[indexs].Score150}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2018[indexs].ScoreTotal}}</view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+
+
+            </view>
+          </block>
+        </view>
+
+      </scroll-view>
+
+    </view>
+    <view wx:if="{{itemSelectId === 1 && majorItemSelectedListSize !== 1}}" style="text-align:center;padding:2% 0px;background:#00BFFF;color:#ffffff;border-bottom: 1rpx solid #e8e8e8;" hover-class="hover-bg">
+      <view style="display:inline;" bindtap="schoolTitleEvent">
+        <text style="white-space: nowrap;">2017年{{provinceName}}</text>
+        <text style="white-space: nowrap;">{{schoolName}}</text>
+        <text>各专业录取信息</text>
+      </view>
+    </view>
+    <view wx:if="{{itemSelectId === 1 && majorItemSelectedListSize !== 1}}" class="filter-tab1" style="width:100%">
+      <view class="filter-tab1-column">
+        <view wx:for="{{tableTitleList}}" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+          <block wx:if="{{index==5}}">
+            <view class="filter-tab1" style="height:340rpx;">
+              <view class="filter-tab1-column1">
+                <view class="filter-tab1-column1">
+                  <text>复</text>
+                  <text>试</text>
+                  <text>线</text>
+                </view>
+              </view>
+              <view class="filter-tab1-column1">
+                <text class="filter-tab2" style="font-size:30rpx;">英语</text>
+                <text class="filter-tab2" style="font-size:30rpx;">政治</text>
+                <text class="filter-tab2" style="font-size:30rpx;">专业课1</text>
+                <text class="filter-tab2" style="font-size:30rpx;">专业课2</text>
+                <text class="filter-tab2" style="font-size:30rpx;">总分</text>
+              </view>
+            </view>
+          </block>
+          <block wx:elif="{{index==0}}">
+            <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">专业名称</view>
+          </block>
+          <block wx:else>
+            <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">{{item}}</view>
+          </block>
+        </view>
+      </view>
+      <scroll-view scroll-x style="width:65%;overflow-x: hidden;" wx:key="{{item.zymc}}">
+        <view style="flex-direction:row;width:100%;overflow-x: auto;white-space:nowrap;">
+          <block wx:for="{{majorItemSelectedList}}" wx:key="{{item.zymc}}" wx:for-item="item" wx:for-index="indexs">
+            <!-- <view style="display:inline-block;width:80%;margin:0rpx 10rpx;">{{item.zymc}}</view> -->
+            <view class="filter-tab1-column2" style="display:inline-block;width:50%;">
+
+              <view wx:for="{{tableTitleList}}" wx:for-item="items" wx:key="*this" class="{{index%2 == 0?'service-item':'service-item1'}}">
+                <block wx:if="{{index==0}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;width:100%;font-size:28rpx;white-space:normal;text-align:center;">{{item.zymc}}</view>
+                </block>
+                <block wx:if="{{index==1}}">
+                  <view style="height:60rpx;display:flex;flex-direction:row;justify-content:center;align-items: center;text-align:center;font-size:28rpx;white-space:normal;">
+                    {{subSelectResultList2017[indexs].FushiFirstNum}}人({{subSelectResultList2017[indexs].FushiTiaoji}}人调剂)
+                  </view>
+                </block>
+                <block wx:if="{{index==2}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subSelectResultList2017[indexs].EnrollNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==3}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subSelectResultList2017[indexs].TiaojiNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==4}}">
+                  <view style="height:60rpx;display:flex;justify-content:center;align-items: center;word-wrap: break-word; ">
+                    {{subSelectResultList2017[indexs].TuimianNum}}
+                  </view>
+                </block>
+                <block wx:if="{{index==5}}">
+                  <view class="filter-tab1" style="height:340rpx;">
+
+                    <view class="filter-tab1-column1">
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2017[indexs].Score100}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2017[indexs].Score100}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2017[indexs].Score150}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2017[indexs].Score150}}</view>
+                      <view class="filter-tab2" style="font-size:30rpx;">{{subSelectResultList2017[indexs].ScoreTotal}}</view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+
+
+            </view>
+          </block>
+        </view>
+
+      </scroll-view>
+
+    </view>
+  </view>
+</view>

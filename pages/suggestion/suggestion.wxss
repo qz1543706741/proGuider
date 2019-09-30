@@ -1,0 +1,41 @@
+/* pages/suggestion/suggestion.wxss */
+ .page{
+   margin-left:40rpx;
+   margin-top:40rpx;
+   display: flex;
+   flex-direction: column;
+ }
+
+.main{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.img-bainji{
+  width: 64rpx;
+  height: 64rpx;
+}
+
+.textclass{
+  margin-left: 20rpx;
+  font-size: 20px;
+  color: 	#33CCFF;
+}
+
+.inputclass{
+  font-size: 16px;
+  width: 560rpx;
+  height: 540rpxrpx;
+  margin-left: 80rpx;
+  margin-top: 20rpx;
+  border: 1rpx solid #DDDDDD;
+}
+
+.submit{
+  color: white;
+  background-color: #33CCFF;
+  width: 560rpx;
+  margin-left: 80rpx;
+  margin-top: 30rpx;
+}

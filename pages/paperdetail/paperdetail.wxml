@@ -1,0 +1,64 @@
+<import src="../../wxParse/wxParse.wxml"/>
+
+
+
+<view class='container'>
+ <view class='seletion'>
+    <view class='top' >
+      <image class="header" src='https://www.profguider.com/bktServer/sTutorImage/studentbackground.png'></image>
+      <view class='top-title'>{{paperinfo.title}}</view>
+    </view>
+  </view>
+
+<view class='container-body'>
+<view class="group-header">
+<view class="group-header-content" style='margin-left:30rpx;'><image src='../../images/academic-hat.png' style='width:40rpx;height: 40rpx;'></image>
+<view style='margin-left:10rpx;'>{{paperinfo.levels}}</view></view>
+
+<view class="group-header-content" ><image src='../../images/date.png' style='width:32rpx;height: 32rpx;'></image>
+<view style='margin-left:10rpx;'>{{paperinfo.years}}</view></view>
+
+<view class="group-header-content" style='margin-right:30rpx;'>
+<image src='../../images/people.png' style='width:32rpx;height: 32rpx;'></image>
+<view style='margin-left:10rpx;'>{{paperinfo.author}}</view>
+</view>
+
+</view>
+
+<view class="group-body">
+  <view class='group-body-title'>
+        研究专业
+  </view>
+</view>
+ <view class='group-body-content'>
+       <view class='group-body-item'>{{paperinfo.major}}</view> 
+  </view>
+
+<view class="group-body">
+  <view class='group-body-title'>
+        论文摘要
+  </view>
+</view>
+ <view class='group-body-content'>
+       <view class='group-body-item'>
+       <template is="wxParse" data="{{wxParseData:content.nodes}}"/> 
+       </view> 
+  </view>
+
+  <view class="group-body">
+  <view class='group-body-title'>
+        关键词
+  </view>
+</view>
+ <view class='group-body-content'>
+       <view class='group-body-item'>{{paperinfo.keyword}}</view> 
+  </view>
+
+
+
+
+
+
+
+</view>
+</view>

@@ -1,0 +1,72 @@
+/* pages/enrolllist/enrolllist.wxss */
+
+page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
+  position: absolute;
+}
+
+.container-title {
+  z-index: 2;
+  position: relative;
+  text-align: center;
+  padding: 2% 0px;
+  background: #00bfff;
+  color: #fff;
+  border-bottom: 1rpx solid #e8e8e8;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  top: 0;
+}
+
+.container-body {
+  font-size: 28rpx;
+}
+
+.container-body-column1 {
+  font-size: 26rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.container-body-column2 {
+  font-size: 30rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.container-body-text {
+  height: 85rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+
+
+.service-item1{
+	display: flex;
+  flex-direction: row;
+  color: #000000;
+  background: rgb(187, 187, 187, 0.3);
+  justify-content: center;
+	padding: 10rpx 0; 
+	border-bottom: 1rpx solid #e8e8e8;
+  
+}
+
+.service-item2{
+	display: flex;
+  flex-direction: row;
+  color: #000000;
+  background: #d3d3d3;
+  justify-content: center;
+	padding: 10rpx 0; 
+	border-bottom: 1rpx solid #e8e8e8;
+}

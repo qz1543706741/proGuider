@@ -1,15 +1,27 @@
 <view class="containers">
-<image class="header" src='../../images/a.png'></image>
-  <view class="group-header">我的菜单</view>
-<view class="group-body">
-  <view class='item-list' wx:for="{{myList}}" data-title="1" data-id="{{item.id}}" wx:key="{{item.id}}" bindtap='link'>
-    <view class='menu-ltem'>
-      {{item.title}}
+  <view class='seletion'>
+    <view class="header">
+      <!-- <image src='../../images/a.png' /> -->
+      <view class="header-content" >
+        <view style="margin-top: 9%">角色：学生</view>
+        <view style="margin-top: 10%">状态：已认证</view>
+        <view style="margin-top: 11%">积分：1000</view>
+      </view>
     </view>
-    <view class='menu-ltem'>
-      <image class='item-image' src='../../images/right.png' mode='aspectFit'></image>
+    <open-data class="avatar" type="userAvatarUrl"></open-data>
+    <open-data class="nickname" type="userNickName" lang="zh_CN"></open-data>
+  </view>
+
+
+  <view class="group-body">
+    <view class='item-list' wx:for="{{myList}}" data-title="1" data-id="{{item.id}}" wx:key="{{item.id}}" bindtap='link'>
+      <view class='menu-ltem'>
+        {{item.title}}
+      </view>
+      <view class='menu-ltem'>
+        <image class='item-image' src='../../images/right.png' mode='aspectFit'></image>
+      </view>
     </view>
   </view>
-</view>
 
 </view>

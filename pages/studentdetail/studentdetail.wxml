@@ -3,7 +3,7 @@
  
  <view class='seletion'>
     <view >
-      <image class="header" src='../../images/studentbackground.png'></image>
+      <image class="header" src='https://www.profguider.com/bktServer/sTutorImage/studentbackground.png'></image>
     </view>
   </view>
 

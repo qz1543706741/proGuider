@@ -22,7 +22,7 @@
 
 <view class="input-item">
 					<text class="input-item-label">本科所在地区</text>
-					<picker class="input-item-content" name="province" bindchange="bindPickerChange" data-pickername="province" value="{{provinceindex}}" range="{{provinceArray}}" range-key="title">{{provinceArray[provinceindex].title}}
+					<picker class="input-item-content" name="province" bindchange="bindPickerChange" data-pickername="province" data-provinceid="{{provinceArray[provinceindex].id}}" value="{{provinceindex}}" range="{{provinceArray}}" range-key="title">{{provinceArray[provinceindex].title}}
 					</picker>
 				</view>
 
@@ -56,7 +56,7 @@
 			<view class="filter-panel" wx:if="{{showfilterindex==5}}">
 					<scroll-view scroll-y="true" class="filter-panel-center">
            <view wx:for="{{bindSource}}" wx:key="id">
-           <view data-itemname="choiceMajor" data-id="{{item.id}}" data-name='{{item.name}}'  bindtap="itemtap" class="itemview">{{item.id}} {{item.name}}</view>
+           <view data-itemname="choiceMajor" data-id="{{item.zydm}}" data-name='{{item.zymc}}'  bindtap="itemtap" class="itemview">{{item.zydm}} {{item.zymc}}</view>
       </view>
       </scroll-view>
 			</view>
@@ -95,7 +95,7 @@
 			<view class="filter-panel" wx:if="{{showfilterindex==2}}">
 					<scroll-view scroll-y="true" class="filter-panel-center">
            <view wx:for="{{bindSource}}" wx:key="id">
-           <view data-itemname="adjustMajor1" data-id="{{item.id}}" data-name='{{item.name}}'  bindtap="itemtap" class="itemview">{{item.id}} {{item.name}}</view>
+           <view data-itemname="adjustMajor1" data-id="{{item.zydm}}" data-name='{{item.zymc}}'  bindtap="itemtap" class="itemview">{{item.zydm}} {{item.zymc}}</view>
       </view>
       </scroll-view>
 			</view>
@@ -114,7 +114,7 @@
 			<view class="filter-panel" wx:if="{{showfilterindex==3}}">
 					<scroll-view scroll-y="true" class="filter-panel-center">
            <view wx:for="{{bindSource}}" wx:key="id">
-           <view data-itemname="adjustMajor2" data-id="{{item.id}}" data-name='{{item.name}}'  bindtap="itemtap" class="itemview">{{item.id}} {{item.name}}</view>
+           <view data-itemname="adjustMajor2" data-id="{{item.zydm}}" data-name='{{item.zymc}}'  bindtap="itemtap" class="itemview">{{item.zydm}} {{item.zymc}}</view>
       </view>
       </scroll-view>
 			</view>
@@ -133,7 +133,7 @@
 			<view class="filter-panel" wx:if="{{showfilterindex==4}}">
 					<scroll-view scroll-y="true" class="filter-panel-center">
            <view wx:for="{{bindSource}}" wx:key="id">
-           <view data-itemname="adjustMajor3" data-id="{{item.id}}" data-name='{{item.name}}'  bindtap="itemtap" class="itemview">{{item.id}} {{item.name}}</view>
+           <view data-itemname="adjustMajor3" data-id="{{item.zydm}}" data-name='{{item.zymc}}'  bindtap="itemtap" class="itemview">{{item.zydm}} {{item.zymc}}</view>
       </view>
       </scroll-view>
 			</view>

@@ -1,7 +1,8 @@
+
 //index.js
 //获取应用实例
- var app = getApp();
-var globalUrl = getApp().globalData.globalUrl
+var app = getApp();
+var globalUrl = app.globalData.globalUrl
 Page({
   data: {
     imageWidth:0,
@@ -14,6 +15,7 @@ Page({
   },
   onLoad: function () {
     this.loadData();
+   
   },
 
   loadData: function (){
@@ -24,9 +26,9 @@ Page({
     var that = this;
     this.setData({
       imgUrls: [
-        '../../images/b.png',
-        '../../images/c.png',
-        '../../images/d.png'
+        'https://www.profguider.com/bktServer/sTutorImage/index_background1.png',
+        'https://www.profguider.com/bktServer/sTutorImage/index_background2.png',
+        'https://www.profguider.com/bktServer/sTutorImage/index_background3.png'
       ],
       imageWidth: wx.getSystemInfoSync().windowWidth
     })
@@ -39,8 +41,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data)
-
         if (res.data != null && res.data.length > 0) {
           setTimeout(function () {
             wx.hideLoading()
@@ -94,7 +94,7 @@ Page({
           header: { 'content-type': 'application/x-www-form-urlencoded' },
           method: 'POST',
           success: function (res) {
-            console.log("++++++++++++++++++")
+    
           }
         })
       },

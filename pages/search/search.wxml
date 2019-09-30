@@ -1,115 +1,114 @@
-<view class='searchtext' >
-<view class='sp'>当前查询条件:
-</view>
-<view class='sp'>姓名
+<view class='searchtext'>
+  <view class='sp'>当前查询条件:
+    <view class="delete-search-cache" bindtap="deleteSearchCache"  wx:if="{{showDelete}}">清除查询记录</view>
+  </view>
+  <view class='sp'>姓名
     <view class='searchtext-in'>{{name}}</view>
-</view>
-<view class='sp'>地区
+  </view>
+  <view class='sp'>地区
     <view class='searchtext-in'>{{provinceName}}</view>
-</view>
-<view class='sp'>院校
- <view class='searchtext-in'>{{schoolName}}</view>
-</view>
-<view class='sp'>专业
- <view class='searchtext-in'>{{majorId}} {{majorName}}</view>
-</view>
-<view class='sp'>职称
- <view class='searchtext-in'>{{title}}</view>
-</view>
+  </view>
+  <view class='sp'>院校
+    <view class='searchtext-in'>{{schoolName}}</view>
+  </view>
+  <view class='sp'>专业
+    <view class='searchtext-in'>{{majorId}} {{majorName}}</view>
+  </view>
+  <view class='sp'>职称
+    <view class='searchtext-in'>{{title}}</view>
+  </view>
 </view>
 
 
 
 <view class="container">
-	<view class="search-flex {{scrolltop>200?'tophide':''}}">
-		<view class="search-bar">
-			<input type="text" maxlength="12" placeholder="请输入导师姓名查询" bindinput="inputSearch" bindblur='bindblurSearch'></input>
-			<button class="search-btn" bindtap="submitSearch" wx:if="{{showsearch}}">搜索</button>
-		</view>
-	</view>
-	<view class="filter-flex">
-		<view class="filter-tab">
-			<text bindtap="setFilterPanel" data-findex="1" class="{{showfilterindex==1?'active':''}}">地区</text>
-			<text bindtap="setFilterPanel" data-findex="2" class="{{showfilterindex==2?'active':''}}">院校</text>
-      	<text bindtap="setFilterPanel" data-findex="3" class="{{showfilterindex==3?'active':''}}">专业</text>
-         	<text bindtap="setFilterPanel" data-findex="4" class="{{showfilterindex==4?'active':''}}">职称</text>
-		</view>
-		<view class="filter-content" wx:if="{{showfilter}}">
+  <view class="search-flex {{scrolltop>200?'tophide':''}}">
+    <view class="search-bar">
+      <input type="text" maxlength="12" placeholder="请输入导师姓名查询" bindinput="inputSearch" bindblur='bindblurSearch'></input>
+      <button class="search-btn" bindtap="submitSearch" wx:if="{{showsearch}}">搜索</button>
+    </view>
+  </view>
+  <view class="filter-flex">
+    <view class="filter-tab">
+      <text bindtap="setFilterPanel" data-findex="1" class="{{showfilterindex==1?'active':''}}">地区</text>
+      <text bindtap="setFilterPanel" data-findex="2" class="{{showfilterindex==2?'active':''}}">院校</text>
+      <text bindtap="setFilterPanel" data-findex="3" class="{{showfilterindex==3?'active':''}}">专业</text>
+      <text bindtap="setFilterPanel" data-findex="4" class="{{showfilterindex==4?'active':''}}">职称</text>
+    </view>
+    <view class="filter-content" wx:if="{{showfilter}}">
 
-			<view class="filter-panel" wx:if="{{showfilterindex==1}}">
-				<view class="filter-panel-left">
-					<view wx:for="{{filterdata.sort}}" wx:key="{{item.id}}" bindtap="setSortIndex" data-sortindex="{{index}}" data-sortid="{{item.id}}" class="{{sortindex==index?'active':''}}">{{item.title}}</view>
-				</view>
-				<view class="filter-panel-right">
-					<view wx:for="{{filterdata.sort[sortindex].subsort}}" wx:key="{{item.id}}" bindtap="setSubsortIndex" data-title="{{item.title}}" data-subsortindex="{{index}}" data-subsortid="{{item.id}}" class="{{subsortindex==index?'active':''}}">{{item.title}}</view>
-				</view>
-			</view>
-
-
-    		<view class="filter-panel-all" wx:if="{{showfilterindex==2}}">
-        	<view class="search-bars"> 
-           <view class="notchoice" bindtap='notChoice' >不限</view>
-           <input  data-findex="1"  style='text-align:center'  bindinput="bindinput" value="{{inputValue}}" placeholder="请输入院校名称关键字" />
+      <view class="filter-panel" wx:if="{{showfilterindex==1}}">
+        <view class="filter-panel-left">
+          <view wx:for="{{filterdata.sort}}" wx:key="{{item.id}}" bindtap="setSortIndex" data-sortindex="{{index}}" data-sortid="{{item.id}}" class="{{sortindex==index?'active':''}}">{{item.title}}</view>
         </view>
-				<view class="filter-panel-buttom" wx-if="{{open}}">
-				  <view wx:for="{{bindSource}}" wx:key="id">
-           <view data-itemname="school" data-schoolid="{{item.id}}" data-schoolname='{{item.schoolName}}'  bindtap="setSchoolIndex" data-schoolindex="{{index}}" class="{{schoolindex==index?'active':''}}">{{item.id}} {{item.schoolName}}</view>
-      </view>
-       </view>
-			</view>
-
-
-
-	
-    		<view class="filter-panel-all" wx:if="{{showfilterindex==3}}">
-        	<view class="search-bars">
-            <view class="notchoice" bindtap='notChoice2' >不限</view>
-           <input  data-findex="2" style='text-align:center'  bindinput="bindinput" value="{{inputValue}}" placeholder="请输入专业关键字" />
+        <view class="filter-panel-right">
+          <view wx:for="{{filterdata.sort[sortindex].subsort}}" wx:key="{{item.id}}" bindtap="setSubsortIndex" data-title="{{item.title}}" data-subsortindex="{{index}}" data-subsortid="{{item.id}}" class="{{subsortindex==index?'active':''}}">{{item.title}}</view>
         </view>
-				<view class="filter-panel-buttom" wx-if="{{open}}">
-				  <view wx:for="{{bindSource}}" wx:key="id">
-           <view data-itemname="major" data-majorid="{{item.id}}" data-majorname='{{item.name}}'  bindtap="setMajorIndex" data-majorindex="{{index}}" class="{{majorindex==index?'active':''}}">{{item.id}} {{item.name}}</view>
       </view>
-       </view>
-			</view>
-
-	
-  
-  
-  
-  <view class="filter-panel" wx:if="{{showfilterindex==4}}">
-				<view class="filter-panel-buttom">
-					<view wx:for="{{filterdata.title}}" wx:key="{{item.id}}" bindtap="setTitleIndex" data-titleindex="{{index}}" data-title="{{item.title}}" data-titleid="{{item.id}}" class="{{titleindex==index?'active':''}}">{{item.title}}</view>
-				</view>
-			</view>
-
-		</view>
-		<view class="filter-shadow" wx:if="{{showfilter}}" bindtap="hideFilter"></view>
-	</view>
 
 
+      <view class="filter-panel-all" wx:if="{{showfilterindex==2}}">
+        <view class="search-bars">
+          <view class="notchoice" bindtap='notChoice'>不限</view>
+          <input data-findex="1" style='text-align:center' bindfocus="getSubSchool" bindinput="bindinput" value="{{inputValue}}" placeholder="请输入院校名称关键字" />
 
-  
-	<scroll-view class="container-body" scroll-y="true" scroll-with-animation="true" scroll-top="{{scrolltop}}" bindscroll="scrollHandle" lower-threshold="50" bindscrolltolower="scrollLoading">
-		<view class="service-list">
-			<view class="service-item" wx:for="{{servicelist}}" data-index="{{index}}" data-id="{{item.id}}" wx:key="{{item.id}}" bindtap='gotutordetail'>
-				<view class="service-img">
-					<image src="https://www.profguider.com/bktServer{{item.imageAddress}}" mode="aspectFill"></image>
-				</view>
-				<view class="service-text">
-					<view class="service-tite">姓名：{{item.name}}</view>  
-					<view class="service-tags" >
-            <text class="service-tite">学校： {{item.schoolName}}</text>
-					</view>
-          <view> 
-          <text class="service-city">招收专业：<text wx-if="{{item.majorName1}}"> ①{{item.majorName1}}</text> <text class="service-city-text" wx-if="{{item.majorName2}}">②{{item.majorName2}}</text> <text class="service-city-text" wx-if="{{item.majorName3}}">③{{item.majorName3}}</text> 
-          </text>
+        </view>
+        <view class="filter-panel-buttom" wx-if="{{open}}">
+          <view wx:for="{{bindSource}}" wx:key="id">
+            <view data-itemname="school" data-schoolid="{{item.id}}" data-schoolname='{{item.schoolName}}' bindtap="setSchoolIndex" data-schoolindex="{{index}}" class="{{schoolindex==index?'active':''}}">{{item.id}} {{item.schoolName}}</view>
           </view>
-				</view>
-       
-			</view> 
-		</view>
-     
-	</scroll-view>
+        </view>
+      </view>
+
+
+
+
+      <view class="filter-panel-all" wx:if="{{showfilterindex==3}}">
+        <view class="search-bars">
+          <view class="notchoice" bindtap='notChoice2'>不限</view>
+          <input data-findex="2" style='text-align:center' bindinput="bindinput" value="{{inputValue}}" placeholder="请输入专业关键字" />
+        </view>
+        <view class="filter-panel-buttom" wx-if="{{open}}">
+          <view wx:for="{{bindSource}}" wx:key="id">
+            <view data-itemname="major" data-majorid="{{item.zydm}}" data-majorname='{{item.zymc}}' bindtap="setMajorIndex" data-majorindex="{{index}}" class="{{majorindex==index?'active':''}}">{{item.zydm}} {{item.zymc}}</view>
+          </view>
+        </view>
+      </view> 
+
+      <view class="filter-panel" wx:if="{{showfilterindex==4}}">
+        <view class="filter-panel-buttom">
+          <view wx:for="{{filterdata.title}}" wx:key="{{item.id}}" bindtap="setTitleIndex" data-titleindex="{{index}}" data-title="{{item.title}}" data-titleid="{{item.id}}" class="{{titleindex==index?'active':''}}">{{item.title}}</view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+
+
+
+  <scroll-view class="container-body" scroll-y="true" scroll-with-animation="true" scroll-top="{{scrolltop}}" bindscroll="scrollHandle" lower-threshold="50" bindscrolltolower="scrollLoading">
+    <view class="service-list">
+      <view class="service-item" wx:for="{{servicelist}}" data-index="{{index}}" data-id="{{item.id}}" wx:key="{{item.id}}" bindtap='gotutordetail'>
+        <view class="service-img">
+          <image src="https://www.profguider.com/bktServer{{item.imageAddress}}" mode="aspectFill"></image>
+        </view>
+        <view class="service-text">
+          <view class="service-tite">姓名：{{item.name}}</view>
+          <view class="service-tags">
+            <text class="service-tite">学校： {{item.schoolName}}</text>
+          </view>
+          <view>
+            <text class="service-city">招收专业：<text wx-if="{{item.majorName1}}"> ①{{item.majorName1}}</text>
+            <text class="service-city-text" wx-if="{{item.majorName2}}">②{{item.majorName2}}</text>
+            <text class="service-city-text" wx-if="{{item.majorName3}}">③{{item.majorName3}}</text>
+            </text>
+          </view>
+        </view>
+
+      </view>
+    </view>
+
+  </scroll-view>
 
 </view>

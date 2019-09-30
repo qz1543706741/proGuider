@@ -1,7 +1,5 @@
 {
-  "pages":[
-
-
+  "pages": [
     "pages/index/index",
     "pages/tutordetail/tutordetail",
     "pages/studentdetail/studentdetail",
@@ -13,14 +11,21 @@
     "pages/menu/menu",
     "pages/myrecoder/myrecoder",
     "pages/myrelease/myrelease",
-    "pages/alter/alter"
-   
+    "pages/myfocus/myfocus",
+    "pages/alter/alter",
+    "pages/paperdetail/paperdetail",
+    "pages/suggestion/suggestion",
+    "pages/myrecommend/myrecommend",
+    "pages/searchSchool/searchSchool",
+    "pages/enrolllist/enrolllist",
+    "pages/myInformation/myInformation",
+    "pages/myfeedback/myfeedback"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#00BFFF",
     "navigationBarTitleText": "卓导",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "list": [
@@ -33,8 +38,8 @@
       {
         "pagePath": "pages/menu/menu",
         "text": "菜单",
-        "iconPath": "images/add_off.png",
-        "selectedIconPath": "images/add_on.png"
+        "iconPath": "images/mean_off.png",
+        "selectedIconPath": "images/mean_on.png"
       },
       {
         "pagePath": "pages/my/my",
@@ -51,5 +56,6 @@
   "networkTimeout": {
     "request": 10000,
     "downloadFile": 10000
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

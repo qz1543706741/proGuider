@@ -31,7 +31,9 @@ Page({
     adjustmajorId: '',
     adjustmajorName: '',
     pager: 1,  //分页
-    list: []
+    list: [],
+
+    subMajorList:[]
 
   },
   onLoad: function (options) { //加载数据渲染页面
@@ -173,11 +175,19 @@ Page({
         showfilterindex: null,
       })
     } else {
-      this.setData({
-        showfilter: true,
-        showfilterindex: i,
-        bindSource: []
-      })
+      if (i == 3) {
+        this.setData({
+          showfilter: true,
+          showfilterindex: i,
+          bindSource:this.data.subMajorList 
+        })
+      } else {
+        this.setData({
+          showfilter: true,
+          showfilterindex: i,
+          bindSource: []
+        })}
+     
     }
 
   },
@@ -227,6 +237,7 @@ Page({
       servicelist: [],
       pager: 1,
     })
+    this.getSubMajor();
     this.dataRequest();
   },
 
@@ -323,6 +334,8 @@ Page({
       schoolId: '',
       schoolName: '',
       showfilterindex: null,
+      subMajorList: []
+      
     })
     this.dataRequest();
   },
@@ -333,6 +346,7 @@ Page({
       majorId: '',
       majorName: '',
       showfilterindex: null,
+      
     })
     this.dataRequest();
   },
@@ -374,15 +388,24 @@ Page({
           })
           break;
         case "2":
-          this.data.majorarray.forEach(function (e) {
-            if (e.name.indexOf(prefix) != -1) {
+        if(this.data.schoolId!=''){
+          this.data.subMajorList.forEach(function (e) {
+            if (e.zymc.indexOf(prefix) != -1) {
               newSource.push(e)
             }
           })
+        }else{
+          this.data.majorarray.forEach(function (e) {
+            if (e.zymc.indexOf(prefix) != -1) {
+              newSource.push(e)
+            }
+          })
+        }
+         
           break;
         case "3":
           this.data.majorarray.forEach(function (e) {
-            if (e.name.indexOf(prefix) != -1) {
+            if (e.zymc.indexOf(prefix) != -1) {
               newSource.push(e)
             }
           })
@@ -399,7 +422,33 @@ Page({
       }
 
 
+
     }
+  },
+
+
+  getSubMajor: function () {
+    var that = this
+    that.setData({
+      subMajorList: []
+    })
+    wx.request({
+      url: globalUrl + '/GetSubMajorList',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      data: {
+        schoolId: that.data.schoolId
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          subMajorList: res.data
+        })
+      }
+
+    })
   },
 
   onHide: function () {

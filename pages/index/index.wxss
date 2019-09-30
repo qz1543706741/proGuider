@@ -4,11 +4,11 @@
   
 }
 .header{
-  margin-top: 5rpx;
+  /* margin-top: 5rpx; */
   height:70rpx;
   display: flex;
   align-items: center;
-  border-radius:10rpx;
+  /* border-radius:10rpx; */
   background-color: #00BFFF;
   position: relative;
   box-shadow: 0px 2rpx 5rpx #888888;
@@ -25,9 +25,9 @@
 
 .text_more{
   color: white;
-  font-size: 20rpx;
+  font-size: 26rpx;
   position: absolute;
-  right:65rpx;
+  right:34rpx;
 }
 
 .header_image{
@@ -98,4 +98,11 @@
 }
 .service-city-text{
   margin-left: 20rpx;
+}
+
+.wx-swiper-dots{
+  /* position:relative;
+  left: unset!important;
+  right: -6rpx; */
+  top: 82%;
 }

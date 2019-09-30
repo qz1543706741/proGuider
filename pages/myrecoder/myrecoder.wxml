@@ -1,36 +1,39 @@
 <view class="containers">
-  <view class="touch-item " data-title="search" data-id="{{item.id}}" data-params="{{item}}" data-index="{{index}}" bindtap='goSearch'  wx:for="{{items}}" wx:key="">
-    <view class="content">
-    <veiw class="userinfo-avatar" >
-    <text>记录{{index+1}}</text>
-    </veiw> 
-    <view class="content-item">
-    <view>
-    <text wx:if="{{item.name==''?false:true}}">姓名：{{item.name}}</text>
-    <text class='sign' wx:if="{{item.tutorId!=0&&item.name!=''?true:false}}">导师详情</text>
-    <text class='sign' wx:if="{{item.tutorId==0&&item.name!=''?true:false}}">姓名查找</text>
-    
-    </view>
-    
-    <view wx:if="{{item.name==''?true:false}}">
-    <text >省份：{{item.provinceName}}</text>
-    <text class="content-item-text" >职称：{{item.title}} </text>
-     <text class='sign' wx:if="{{item.name==''?true:false}}">条件查找</text>
-    </view>
-
-    <view  wx:if="{{item.name==''?true:false}}">
-    <text >学校：{{item.schoolId}} {{item.schoolName}}</text>
-    </view>
-    <view  wx:if="{{item.name==''?true:false}}">
-    <text>专业：{{item.majorId}} {{item.majorName}}</text>
-    </view>
-    </view>
-     <view>
-          <image class='content-left' src='../../images/right.png' mode='aspectFit'></image>
-    </view>
-    </view>
+  <view class="container-title">
+    <text class="container-title-text" style="width: 30%;">序号</text>
+    <text class="container-title-text">查询关键字</text>
+    <text class="container-title-text">查询类型</text>
+    <text class="container-title-text" style="width: 60%;">查询时间</text>
   </view>
-  <view class="weui-loadmore weui-loadmore_line" wx:if="{{open}}">
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无查询记录</view>
+
+  <view class="container-body">
+    <view class="container-body-view" style="width: 30%;">1</view>
+    <view class="container-body-view">江西财经大学</view>
+    <view class="container-body-view">导师查询</view>
+    <view class="container-body-view" style="width: 60%;">2019.09.26</view>
+  </view>
+  <view class="container-body">
+    <view class="container-body-view" style="width: 30%;">1</view>
+    <view class="container-body-view">江西财经大学</view>
+    <view class="container-body-view">导师查询</view>
+    <view class="container-body-view" style="width: 60%;">2019.09.26</view>
+  </view>
+  <view class="container-body">
+    <view class="container-body-view" style="width: 30%;">1</view>
+    <view class="container-body-view">江西财经大学</view>
+    <view class="container-body-view">导师查询</view>
+    <view class="container-body-view" style="width: 60%;">2019.09.26</view>
+  </view>
+  <view class="container-body">
+    <view class="container-body-view" style="width: 30%;">1</view>
+    <view class="container-body-view">江西财经大学</view>
+    <view class="container-body-view">导师查询</view>
+    <view class="container-body-view" style="width: 60%;">2019.09.26</view>
+  </view>
+  <view class="container-body">
+    <view class="container-body-view" style="width: 30%;">1</view>
+    <view class="container-body-view">江西财经大学</view>
+    <view class="container-body-view">导师查询</view>
+    <view class="container-body-view" style="width: 60%;">2019.09.26</view>
   </view>
 </view>
